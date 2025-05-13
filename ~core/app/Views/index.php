@@ -48,10 +48,10 @@
                 <a class="nav-link active" aria-current="page" href="">Profil Sekolah</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/login">Digital Kantin</a>
+                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Digital Mini Mart</a>
+                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Mili Mart Digital</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/BANK" ?>">Bank Mini</a>
