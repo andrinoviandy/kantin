@@ -70,7 +70,7 @@
                         <p>&copy;
                             <script>
                                 document.write(new Date().getFullYear())
-                            </script> Aplikasi Kantin Digital. Deleloped <i class="mdi mdi-heart text-danger"></i> by Imamdev
+                            </script> Aplikasi Kantin Digital. Developed by PruTech PTPU
                         </p>
                     </div>
 

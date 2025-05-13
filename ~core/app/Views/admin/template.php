@@ -340,7 +340,7 @@
                             <div class="col-sm-6">
                                 <script>
                                     document.write(new Date().getFullYear())
-                                </script> © Imamdev.
+                                </script> © Developed by PruTech PTPU
                             </div>
                             <div class="col-sm-6">
                                 <div class="text-sm-end d-none d-sm-block">
