@@ -51,7 +51,7 @@
                 <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Mili Mart Digital</a>
+                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Milu Mart Digital</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/BANK" ?>">Bank Mini</a>
@@ -73,7 +73,7 @@
             <div class="header-text">
               <div class="text">
                 <?= $header->hero_text ?>
-                <a class="btn btn-primary kids-active-btn" href="<?= base_url() ?>/login">LOGIN DISINI</a>
+                <!-- <a class="btn btn-primary kids-active-btn" href="<?= base_url() ?>/login">LOGIN DISINI</a> -->
               </div>
             </div>
           </div>
@@ -88,8 +88,8 @@
         <img src="<?= base_url() ?>/assets/landing/images/cloud-01.png" alt="">
       </div>
     </div>
-    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
-    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div>
+    <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
+    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
   </header>
   <!-- ====================================
         End Header Here
@@ -190,8 +190,8 @@
         <!-- col-md-4 -->
       </div>
     </div>
-    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
-    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div>
+    <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
+    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
   </section>
   <!-- ====================================
         End activities Area Here
@@ -284,8 +284,8 @@
         <!-- row -->
       </div>
     </div>
-    <div class="g-bettarfly"><img src="<?= base_url() ?>/assets/landing/images/betterfly.png" alt=""></div>
-    <div class="g-bettarfly-two"><img src="<?= base_url() ?>/assets/landing/images/betterfly.png" alt=""></div>
+    <!-- <div class="g-bettarfly"><img src="<?= base_url() ?>/assets/landing/images/betterfly.png" alt=""></div>
+    <div class="g-bettarfly-two"><img src="<?= base_url() ?>/assets/landing/images/betterfly.png" alt=""></div> -->
   </section>
   <!-- ====================================
         End Gellary Area Here
@@ -307,7 +307,7 @@
         <div class="col-md-8 clo-sm-6 cal-xxl-9">
           <div class="call-to-action-text">
             <div>
-              <h3>SMK Negeri 1 Mempawah Hilir</h3>
+              <h3>Tahap pengembangan Aplikasi E-CANTEEN dan E-MALL Layanan Bisnis Terpadu</h3>
               <p>@2025 - <a href="https://smkn1memhil.sch.id/" target="_blank" class="text-white">smkn1memhil.sch.id</a></p>
               <div class="footer-social">
                 <ul>

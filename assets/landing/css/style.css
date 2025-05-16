@@ -80,14 +80,22 @@ input:focus{
     font-weight: 500;
 }
 span.title-span{
-    color: #EB6025;
+    /* color: #EB6025; */
+    color: white;
     font-size: 22px;
     letter-spacing: 10px;
     font-weight: 600;
 }
 .color-span{
-    color: #EB6025;
+    /* color: #EB6025; */
+    color: white;
     font-family: 'Abril Fatface', cursive;
+}
+.color-span2{
+    color: #EB6025;
+}
+.color-span3{
+    color: white;
 }
 section{
     padding: 120px 0px;
@@ -108,7 +116,7 @@ section{
     MAIN STYLE START
 ==========================*/
 header{
-    background: #FDF8EE url('../images/herobg.png');
+    background: #FDF8EE url('../images/header2.jpg');
     min-height: 1000px;
     background-repeat: no-repeat;
     background-position: bottom center;
@@ -121,6 +129,7 @@ header{
 header .menu{
     padding: 20px 0px;
     transition: .5s all ease-in-out;
+    background-color: white;
 }
 .navbar-light .navbar-nav .nav-link{
     font-size: 18px;
@@ -565,7 +574,7 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
     OUR Activities STYLE START
 =============================*/
 .activities {
-    background: url('../images/bg.png');
+    /* background: url('../images/bg.png'); */
     background-repeat: no-repeat;
     background-size: cover; 
     position: relative;
@@ -599,7 +608,7 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
     content: '';
     top: 0;
     left: 0;
-    background: url('../images/yellow-cloud.png');
+    /* background: url('../images/yellow-cloud.png'); */
     background-repeat: no-repeat;
     background-size: contain;
     height: 100px;
@@ -612,7 +621,7 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
     content: '';
     bottom: 0;
     right: 0;
-    background: url('../images/yellow-cloud.png');
+    /* background: url('../images/yellow-cloud.png'); */
     background-repeat: no-repeat;
     background-size: contain;
     height: 100px;
@@ -1383,6 +1392,7 @@ i.fa-solid.fa-eye{color: #fff;transition: .5s;}
 .call-to-action-text h3{
     font-size: 45px;
     color: #fff;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .call-to-action-text  p{
     color: #fff;
