@@ -189,7 +189,7 @@
                                         </ul>
                                     </li>
 
-                                    <li <?= ($menu == 'deposit') ? 'class="mm-active"' : '' ?>>
+                                    <!-- <li <?= ($menu == 'deposit') ? 'class="mm-active"' : '' ?>>
                                         <a href="javascript: void(0);" class="waves-effect has-arrow <?= ($menu == 'deposit') ? 'class="mm-active"' : '' ?>">
                                             <i class="mdi mdi-currency-usd"></i>
                                             <span>Deposit</span>
@@ -203,7 +203,7 @@
                                             <li><a href="<?= base_url('admin/deposit/new_guru') ?>" <?= ($menu == 'deposit' && $sub == 'new_guru') ? 'class="active"' : '' ?>>Tambah Deposit Guru</a></li>
                                             <li><a href="<?= base_url('admin/deposit/history_guru') ?>" <?= ($menu == 'deposit' && $sub == 'history_guru') ? 'class="active"' : '' ?>">Riwayat Deposit Guru</a></li>
                                         </ul>
-                                    </li>
+                                    </li> -->
 
                                     <li <?= ($dir == 'admin' && $menu == 'laporan') ? 'class="mm-active"' : '' ?>>
                                         <a href="javascript: void(0);" class="waves-effect has-arrow <?= ($menu == 'laporan') ? 'class="mm-active"' : '' ?>">
