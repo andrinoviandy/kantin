@@ -36,28 +36,28 @@
 ======================== -->
   <header>
     <div class="menu">
-      <div class="container">
+      <div class="container-menu">
         <nav class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="index.html"><img src="<?= base_url() ?>/assets/landing/images/<?= $header->logo ?>" alt=""></a>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="">Beranda</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="">Beranda</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="">Profil Sekolah</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="">Profil Sekolah</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Milu Mart Digital</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Milu Mart Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/BANK" ?>">Bank Mini</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/BANK" ?>">Bank Mini</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="">Bisnis Lainnya</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="">Bisnis Lainnya</a>
               </li>
               <!-- <li class="nav-item"><a class="nav-link btn btn-primary kids-active-btn" href=""> LOGIN</a> </li> -->
             </ul>
