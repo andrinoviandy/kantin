@@ -18,6 +18,7 @@ use App\Models\BarangModel;
 use App\Models\DepositModel;
 use App\Models\TransaksiModel;
 use App\Models\Transaksi_detailModel;
+use App\Models\Transaksi_detail_tempModel;
 use App\Models\NotifikasiModel;
 use App\Models\Landing_headerModel;
 use App\Models\Landing_featuredModel;
@@ -25,6 +26,7 @@ use App\Models\Landing_kepala_sekolahModel;
 use App\Models\Landing_galleryModel;
 use App\Models\Landing_footerModel;
 use App\Models\GuruModel;
+use App\Models\Biaya_adminModel;
 
 /**
  * Class BaseController
@@ -54,6 +56,7 @@ class BaseController extends Controller
     protected $deposit;
     protected $transaksi;
     protected $transaksi_detail;
+    protected $transaksi_detail_temp;
     protected $notifikasi;
     protected $landing_header;
     protected $landing_featured;
@@ -61,6 +64,7 @@ class BaseController extends Controller
     protected $landing_gallery;
     protected $landing_footer;
     protected $guru;
+    protected $biaya_admin;
 
     /**
      * An array of helpers to be loaded automatically upon
@@ -92,6 +96,7 @@ class BaseController extends Controller
         $this->deposit                = new DepositModel();
         $this->transaksi              = new TransaksiModel();
         $this->transaksi_detail       = new Transaksi_detailModel();
+        $this->transaksi_detail_temp  = new Transaksi_detail_tempModel();
         $this->notifikasi             = new NotifikasiModel();
         $this->guru                   = new GuruModel();
         $this->landing_header         = new Landing_headerModel();
@@ -99,5 +104,6 @@ class BaseController extends Controller
         $this->landing_kepala_sekolah = new Landing_kepala_sekolahModel();
         $this->landing_gallery        = new Landing_galleryModel();
         $this->landing_footer         = new Landing_footerModel();
+        $this->biaya_admin            = new Biaya_adminModel();
     }
 }

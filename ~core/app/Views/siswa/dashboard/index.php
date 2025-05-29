@@ -17,6 +17,10 @@
                         <i class="fa fa-bell"></i>
                         <p>Notifikasi</p>
                     </a>
+                    <a href="#" class="tab-link" onclick="location.href='<?= base_url('siswa/transaksi') ?>'">
+                        <i class="fa fa-shopping-cart"></i>
+                        <p>My Cart</p>
+                    </a>
                     <a href="#tab-5" class="tab-link">
                         <i class="fas fa-user"></i>
                         <p>Akun Saya</p>
@@ -111,10 +115,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a href="" onclick="location.href='<?= base_url('siswa/profile/password') ?>'">
+                                        <a href="" onclick="location.href='<?= base_url('siswa/pesan') ?>'">
                                             <div class="background-white text-center border-radius padding-box box-shadow">
-                                                <span class="icon-big icon-color-teal"><i class="fa fa-lock"></i></span>
-                                                <h6 class="font-weight-500">Ubah Password</h6>
+                                                <span class="icon-big icon-color-teal"><i class="fa fa-utensils"></i></span>
+                                                <h6 class="font-weight-500">Pesan</h6>
                                             </div>
                                         </a>
                                     </div>

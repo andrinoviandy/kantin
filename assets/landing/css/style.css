@@ -3811,3 +3811,16 @@ button:focus {
 .mean-container .mean-nav ul li a {
     color: #F9722E !important;
 }
+
+.container-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+  gap: 16px;
+}
+
+.card2 {
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
