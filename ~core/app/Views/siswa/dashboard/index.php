@@ -19,7 +19,7 @@
                     </a>
                     <a href="#" class="tab-link" onclick="location.href='<?= base_url('siswa/transaksi') ?>'">
                         <i class="fa fa-shopping-cart"></i>
-                        <p>My Cart</p>
+                        <p>Pesanan Aktif</p>
                     </a>
                     <a href="#tab-5" class="tab-link">
                         <i class="fas fa-user"></i>

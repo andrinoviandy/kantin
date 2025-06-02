@@ -2,34 +2,36 @@
 
 <?php $this->section('css') ?>
 <style>
-  .otp-input-wrapper {
-  width: 350px;
-  text-align: left;
-  display: inline-block;
-}
-.otp-input-wrapper input {
-  padding: 0;
-  width: 360px;
-  font-size: 32px;
-  font-weight: 600;
-  color: #3e3e3e;
-  background-color: transparent;
-  border: 0;
-  margin-left: 12px;
-  letter-spacing: 48px;
-  font-family: sans-serif !important;
-}
-.otp-input-wrapper input:focus {
-  box-shadow: none;
-  outline: none;
-}
-.otp-input-wrapper svg {
-  position: relative;
-  display: block;
-  width: 350px;
-  height: 2px;
-}
+    .otp-input-wrapper {
+        width: 350px;
+        text-align: left;
+        display: inline-block;
+    }
 
+    .otp-input-wrapper input {
+        padding: 0;
+        width: 360px;
+        font-size: 32px;
+        font-weight: 600;
+        color: #3e3e3e;
+        background-color: transparent;
+        border: 0;
+        margin-left: 12px;
+        letter-spacing: 48px;
+        font-family: sans-serif !important;
+    }
+
+    .otp-input-wrapper input:focus {
+        box-shadow: none;
+        outline: none;
+    }
+
+    .otp-input-wrapper svg {
+        position: relative;
+        display: block;
+        width: 350px;
+        height: 2px;
+    }
 </style>
 <?php $this->endSection() ?>
 
@@ -43,7 +45,7 @@
                 </a>
             </div>
             <div class="title">
-                My Cart / Keranjang Saya
+                Pesanan Aktif
             </div>
         </div>
     </div>
@@ -54,7 +56,7 @@
                 <div id="result" class="row"></div>
                 <div class="separator-small"></div>
                 <div class="separator-bottom"></div>
-                
+
             </div>
         </div>
         <!-- end deposit -->
@@ -107,17 +109,17 @@
         let nominal_admin = $('#nominal_admin').val();
         if (pin.length == 6) {
             $.ajax({
-            url: "<?= base_url('siswa/transaksi/selesai') ?>",
-            method: "POST",
-            data: {
-                pin: pin,
-                nominal_bayar: nominal_bayar,
-                nominal_admin: nominal_admin
-            },
-            success: function(data) {
-                Swal.fire(data)
-            }
-        });
+                url: "<?= base_url('siswa/transaksi/selesai') ?>",
+                method: "POST",
+                data: {
+                    pin: pin,
+                    nominal_bayar: nominal_bayar,
+                    nominal_admin: nominal_admin
+                },
+                success: function(data) {
+                    Swal.fire(data)
+                }
+            });
         } else {
             Swal.fire('PIN Belum lengkap !', 'Harus 6 Angka')
         }
@@ -172,8 +174,42 @@
         }
     })
 
+    function hapus(id) {
+        Swal.fire({
+            title: 'Anda Yakin Menghapus Item Ini ?',
+            text: "Data tidak dapat dikembalikan!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= base_url('siswa/transaksi/delete') ?>",
+                    method: "POST",
+                    data: {
+                        id: id
+                    },
+                    success: function(data) {
+                        if (data == 'S') {
+                            load_data()
+                            Swal.fire('Berhasil Dihapus !')
+                        } else {
+                            Swal.fire('Gagal Dihapus !')
+                        }
+                    }
+                });
+            }
+        });
+    }
+
     $(document).ready(function() {
         load_data();
+        $('#buttonBayar').click(function () {
+            alert('diklik')
+        })
     });
 </script>
 <?php $this->endSection() ?>

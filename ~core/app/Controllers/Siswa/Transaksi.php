@@ -57,10 +57,13 @@ class Transaksi extends BaseController
                 $output .= '
                                     <tr>
                                         <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20"></td>
-                                        <td>' . $d->nama . '</td>
+                                        <td>' . $d->nama . '<br></td>
                                         <td  align="center">' . $d->jumlah . '</td>
                                         <td align="center">' . $d->harga . '</td>
                                         <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
+                                        <td align="right">
+                                        <span class="fa fa-trash text-color-red" onclick="hapus(' . $d->id . '); return false;"></span>
+                                        </td>
                                     </tr>
                                     ';
             }
@@ -249,12 +252,60 @@ class Transaksi extends BaseController
             $cek = $this->siswa->select('siswa.id, siswa.kode, siswa.pin, siswa.nama, siswa.kelas, ortu.saldo, ortu.id as id_ortu')->where('siswa.id', session()->get('id'))->join('ortu', 'siswa.id=ortu.id_siswa')->first();
             if ($cek != null) {
                 if ($cek->pin == $_POST['pin']) {
-                    $up_saldo = [
-                        'id'     => $cek->id_ortu,
-                        'saldo'  => $cek->saldo - ($_POST['nominal_bayar']+$_POST['nominal_admin']),
-                    ];
+                    $data = $this->transaksi_detail_temp->where('id_siswa', session()->get('id'))->get()->getResultArray();
+                    $sumModal = $this->transaksi_detail_temp
+                        ->selectSum('modal')
+                        ->where('id_siswa', session()->get('id'))
+                        ->get()
+                        ->getRow();
+                    if ($data != null) {
+                        $maxNoTransaksi = $this->transaksi
+                            ->selectMax('no_transaksi')
+                            ->get()
+                            ->getRow();
+                        $post = [
+                            // 'id_kantin'    => $kantin->id,
+                            // 'id_petugas'   => session()->get('id'),
+                            'id_siswa'     => session()->get('id'),
+                            'no_transaksi' => intval($maxNoTransaksi->no_transaksi) + 1,
+                            'modal'        => $sumModal->modal,
+                            'total'        => $_POST['nominal_bayar'] + $_POST['nominal_admin'],
+                            'lunas'        => 1,
+                            'status'       => 1,
+                            'created_at'   => date('Y-m-d H:i:s'),
+                        ];
 
-                    $this->ortu->save($up_saldo);
+                        $this->transaksi->save($post);
+                        $idTransaksi = $this->transaksi->insertID();
+                        $finalData = [];
+                        foreach ($data as $row) {
+                            $finalData[] = [
+                                // Sesuaikan key-value ini dengan kolom di tabel transaksi_detail
+                                'id_transaksi'     => $idTransaksi,
+                                'id_barang'    => $row['id_barang'],
+                                'modal'       => $row['modal'],
+                                'harga' => $row['harga'],
+                                'jumlah'     => $row['jumlah'],
+                            ];
+                        }
+
+                        if (!empty($finalData)) {
+                            $insertTransaksi = $this->transaksi_detail->insertBatch($finalData);
+                            if ($insertTransaksi !== false) {
+                                $this->transaksi_detail_temp
+                                    ->where('id_siswa', session()->get('id'))
+                                    ->delete();
+                                $up_saldo = [
+                                    'id'     => $cek->id_ortu,
+                                    'saldo'  => $cek->saldo - ($_POST['nominal_bayar'] + $_POST['nominal_admin']),
+                                ];
+
+                                $update_saldo = $this->ortu->save($up_saldo);
+                                echo "Transaksi Berhasil Di Simpan";
+                                die();
+                            }
+                        }
+                    }
                 } else {
                     echo "PIN SALAH !";
                 }
@@ -371,16 +422,14 @@ class Transaksi extends BaseController
         return view('petugas/transaksi/struk', $data);
     }
 
-
-    public function delete($id)
+    public function delete()
     {
-        if (session()->get('logged_in') == null && session()->get('level_kantin') == false) {
-            return redirect()->to(base_url('login'));
+        $delete = $this->transaksi_detail_temp->where('id', $_POST['id'])->delete();
+        if ($delete) {
+            echo "S";
+        } else {
+            echo "F";
         }
-
-        $this->transaksi->delete($id, true);
-        $this->transaksi_detail->where('id_transaksi', $id)->delete();
-        return redirect()->to(base_url('petugas/transaksi/aktif'));
     }
 
     public function delete_item($id)

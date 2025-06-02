@@ -43,7 +43,7 @@
 <?php $this->endSection() ?>
 
 <?php $this->section('js') ?>
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function load_count_data() {
         $.ajax({
