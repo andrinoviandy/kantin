@@ -252,6 +252,9 @@ class Transaksi extends BaseController
             $cek = $this->siswa->select('siswa.id, siswa.kode, siswa.pin, siswa.nama, siswa.kelas, ortu.saldo, ortu.id as id_ortu')->where('siswa.id', session()->get('id'))->join('ortu', 'siswa.id=ortu.id_siswa')->first();
             if ($cek != null) {
                 if ($cek->pin == $_POST['pin']) {
+                    if ($cek->saldo < intval($_POST['nominal_bayar'] + $_POST['nominal_admin'])) {
+                        die('Saldo Anda Kurang !');
+                    }
                     $data = $this->transaksi_detail_temp->where('id_siswa', session()->get('id'))->get()->getResultArray();
                     $sumModal = $this->transaksi_detail_temp
                         ->selectSum('modal')
