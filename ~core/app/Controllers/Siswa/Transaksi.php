@@ -45,7 +45,7 @@ class Transaksi extends BaseController
 
     public function aktif()
     {
-        $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
+        $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi.biaya_admin, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
 
         $output = '';
         if ($detail != null) {
@@ -83,7 +83,7 @@ class Transaksi extends BaseController
             }
             $output .= '        <tr>
                                     <td align="center" colspan="4">TOTAL</td>
-                                    <td align="right">' . number_format($total, 0, '.', '.') . '</td>
+                                    <td align="right">' . number_format($total + intval($detail[0]->biaya_admin), 0, '.', '.') . '</td>
                                 </tr>
                                 <tr>
                                     <td colspan="6" align="left">
