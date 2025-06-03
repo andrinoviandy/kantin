@@ -253,7 +253,12 @@ class Bayar extends BaseController
             if ($cek != null) {
                 if ($cek->pin == $_POST['pin']) {
                     if ($cek->saldo < intval($_POST['nominal_bayar'] + $_POST['nominal_admin'])) {
-                        die('Saldo Anda Kurang !');
+                        $response = [
+                            "status" => "F",
+                            "message" => "Saldo Anda Kurang"
+                        ];
+                        echo json_encode($response);
+                        die();
                     }
                     $data = $this->transaksi_detail_temp->where('id_siswa', session()->get('id'))->get()->getResultArray();
                     $sumModal = $this->transaksi_detail_temp
