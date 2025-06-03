@@ -102,7 +102,7 @@ class Transaksi extends BaseController
                         <td>Total Pembayaran</td>
                         <td>:</td>
                         <td class="float-right" style="font-size: 20px">
-                        <input type="hidden" value="' . $siswa->saldo - ($total + $biaya_admin->nominal_biaya) . '" id="flag_saldo">
+                        <input type="hidden" value="' . (intval($siswa->saldo) - (intval($total) + intval($biaya_admin->nominal_biaya))) . '" id="flag_saldo">
                         ' . number_format($total + $biaya_admin->nominal_biaya, 0, '.', '.') . '
                         </td>
                     </tr>';
