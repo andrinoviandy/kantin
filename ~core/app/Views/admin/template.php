@@ -266,10 +266,16 @@
                                         </a>
                                     </li>
 
-                                    <li <?= ($dir == 'petugas' && $menu == 'transaksi') ? 'class="mm-active"' : '' ?>>
+                                    <!-- <li <?= ($dir == 'petugas' && $menu == 'transaksi') ? 'class="mm-active"' : '' ?>>
                                         <a href="<?= base_url('petugas/transaksi/aktif') ?>" class=" waves-effect <?= ($menu == 'transaksi') ? 'class="mm-active"' : '' ?>">
                                             <i class="mdi mdi-table-large-plus"></i>
                                             <span>Transaksi Baru</span>
+                                        </a>
+                                    </li> -->
+                                    <li <?= ($dir == 'petugas' && $menu == 'transaksi') ? 'class="mm-active"' : '' ?>>
+                                        <a href="<?= base_url('petugas/transaksi/ready') ?>" class=" waves-effect <?= ($menu == 'transaksi') ? 'class="mm-active"' : '' ?>">
+                                            <i class="mdi mdi-cart"></i>
+                                            <span>Transaksi Aktif</span>
                                         </a>
                                     </li>
 

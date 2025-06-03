@@ -4,7 +4,7 @@ namespace App\Controllers\Siswa;
 
 use App\Controllers\BaseController;
 
-class Transaksi extends BaseController
+class Bayar extends BaseController
 {
 
     public function index()
@@ -14,22 +14,10 @@ class Transaksi extends BaseController
             'session' => session()->get(),
             'segment' => $this->request->uri->getSegments(),
             'admin'   => $this->admin->find(session()->get('id')),
-            'transaksi'  => $this->barang->findAll(),
+            'barang'  => $this->barang->findAll(),
         ];
 
-        return view('siswa/transaksi/index', $data);
-    }
-
-    public function check_aktif()
-    {
-        $jumlah = count($this->transaksi
-            ->where(['id_siswa' => session()->get('id'), 'status' => 0])
-            ->findAll());
-        if ($jumlah > 0) {
-            echo "F";
-        } else {
-            echo "S";
-        }
+        return view('siswa/bayar/index', $data);
     }
 
     public function count_aktif($id = null)
@@ -45,12 +33,15 @@ class Transaksi extends BaseController
 
     public function aktif()
     {
-        $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
+        $detail = $this->transaksi_detail_temp->select('transaksi_detail_temp.id, transaksi_detail_temp.id_barang, transaksi_detail_temp.harga, transaksi_detail_temp.jumlah, barang.nama as nama, barang.foto')->where('id_siswa', session()->get('id'))->join('barang', 'barang.id=transaksi_detail_temp.id_barang')->findAll();
+
+        $siswa = $this->siswa->select('siswa.*, ortu.saldo')->where('siswa.id', session()->get('id'))->join('ortu', 'siswa.id = ortu.id_siswa')->first();
+
+        $biaya_admin = $this->biaya_admin->where('id', '1')->first();
 
         $output = '';
         if ($detail != null) {
             $output .= '<div class="background-white box-shadow border-radius padding-box-middle" style="width:100%">
-                        <div>No. Nota : ' . $detail[0]->no_transaksi . '</div>
                         <div class="overflow-hidden">
                             <table width="100%" border="0">
                                 <tr>
@@ -59,7 +50,6 @@ class Transaksi extends BaseController
                                     <th>Qty</th>
                                     <th>Harga</th>
                                     <th>Total</th>
-                                    <th>Status</th>
                                 </tr>';
             $total = 0;
             foreach ($detail as $d) {
@@ -69,31 +59,79 @@ class Transaksi extends BaseController
                                         <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20"></td>
                                         <td>' . $d->nama . '<br></td>
                                         <td  align="center">' . $d->jumlah . '</td>
-                                        <td align="center">' . number_format($d->harga, 0, ',', '.') . '</td>
+                                        <td align="center">' . $d->harga . '</td>
                                         <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
-                                        <td align="right">';
-                if ($d->ready == 1) {
-                    $output .= '<span class="fa fa-check text-color-green"></span>';
-                } else {
-                    $output .= '<span>Wait..</span>';
-                }
-                $output .= '</td>
+                                        <td align="right">
+                                        <span class="fa fa-trash text-color-red" onclick="hapus(' . $d->id . '); return false;"></span>
+                                        </td>
                                     </tr>
                                     ';
             }
-            $output .= '        <tr>
+            $output .= '     <tr>
                                     <td align="center" colspan="4">TOTAL</td>
                                     <td align="right">' . number_format($total, 0, '.', '.') . '</td>
                                 </tr>
-                                <tr>
-                                    <td colspan="6" align="left">
-                                        <button style="background-color: orangered; color:white; padding:5px; border:none; border-radius: 10px; width:50%" onclick="pesananSelesai(' . $detail[0]->id . '); return false;">Pesanan Selesai</button>
-                                    </td>
-                                <tr>
                             </table>
                         </div>
                         </div>
                 ';
+            $output .= '<div class="background-white box-shadow border-radius padding-box-middle margin-top-middle" style="width:100%">
+                <table width="100%" border="0">
+                    <tr>
+                        <td>Saldo Anda Saat Ini</td>
+                        <td>:</td>
+                        <td class="font font-size-20 float-right" style="font-size: 20px">' . number_format($siswa->saldo, 0, '.', '.') . '</td>
+                    </tr>
+                    <tr>
+                        <td>Sub Total</td>
+                        <td>:</td>
+                        <td class="float-right">
+                        <input type="hidden" value="' . $total . '" id="nominal_bayar">
+                        ' . number_format($total, 0, '.', '.') . '
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Biaya Admin</td>
+                        <td>:</td>
+                        <td class="float-right">
+                        <input type="hidden" value="' . $biaya_admin->nominal_biaya . '" id="nominal_admin">
+                        ' . number_format($biaya_admin->nominal_biaya, 0, '.', '.') . '
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total Pembayaran</td>
+                        <td>:</td>
+                        <td class="float-right" style="font-size: 20px">
+                        <input type="hidden" value="' . (intval($siswa->saldo) - (intval($total) + intval($biaya_admin->nominal_biaya))) . '" id="flag_saldo">
+                        ' . number_format($total + $biaya_admin->nominal_biaya, 0, '.', '.') . '
+                        </td>
+                    </tr>';
+            if ($siswa->saldo - ($total + $biaya_admin->nominal_biaya) >= 0) {
+                $output .= '<tr>
+                            <td colspan="3" align="center" class="text-color-green" style="font-size:18px; font-weight: bold">
+                            Saldo Cukup
+                            </td>
+                        </tr>';
+            } else {
+                $output .= '<tr>
+                            <td colspan="3" align="center" class="text-color-red" style="font-size:18px; font-weight: bold">
+                            Saldo Tidak Cukup
+                            </td>
+                        </tr>';
+            }
+
+            $output .= '</table>
+                <div class="margin-top-middle" style="margin-bottom:25px">
+                    Masukkan PIN Transaksi <br>
+                    <div class="otp-input-wrapper">
+                        <input type="password" maxlength="6" pattern="[0-9]*" autocomplete="new-password" name="pin" id="pin" autofocus>
+                        <svg viewBox="0 0 240 1" xmlns="http://www.w3.org/2000/svg">
+                            <line x1="0" y1="0" x2="240" y2="0" stroke="#3e3e3e" stroke-width="2" stroke-dasharray="33,8" />
+                        </svg>
+                    </div>
+                </div>
+                <button class="button button-outline color-orange background-white" id="buttonBayar" onclick="bayar(); return false">Bayar</button>
+                </div';
             echo $output;
         } else {
             echo "Tidak Ada Data";
@@ -234,7 +272,8 @@ class Transaksi extends BaseController
                             'id_siswa'     => session()->get('id'),
                             'no_transaksi' => intval($maxNoTransaksi->no_transaksi) + 1,
                             'modal'        => $sumModal->modal,
-                            'total'        => $_POST['nominal_bayar'] + $_POST['nominal_admin'],
+                            'total'        => $_POST['nominal_bayar'],
+                            'biaya_admin'  => $_POST['nominal_admin'],
                             'lunas'        => 1,
                             'status'       => 0,
                             'created_at'   => date('Y-m-d H:i:s'),
@@ -246,11 +285,12 @@ class Transaksi extends BaseController
                         foreach ($data as $row) {
                             $finalData[] = [
                                 // Sesuaikan key-value ini dengan kolom di tabel transaksi_detail
-                                'id_transaksi'     => $idTransaksi,
-                                'id_barang'    => $row['id_barang'],
-                                'modal'       => $row['modal'],
-                                'harga' => $row['harga'],
-                                'jumlah'     => $row['jumlah'],
+                                'id_transaksi'  => $idTransaksi,
+                                'id_barang'     => $row['id_barang'],
+                                'modal'         => $row['modal'],
+                                'harga'         => $row['harga'],
+                                'jumlah'        => $row['jumlah'],
+                                'ready'         => 0
                             ];
                         }
 
@@ -266,19 +306,38 @@ class Transaksi extends BaseController
                                 ];
 
                                 $update_saldo = $this->ortu->save($up_saldo);
-                                echo "Transaksi Berhasil Di Simpan";
+                                $response = [
+                                    "status" => "S",
+                                    "message" => "Transaksi Berhasil Di Simpan"
+                                ];
+                                echo json_encode($response);
                                 die();
                             }
                         }
                     }
                 } else {
-                    echo "PIN SALAH !";
+                    $response = [
+                        "status" => "F",
+                        "message" => "PIN SALAH !"
+                    ];
+                    echo json_encode($response);
+                    die();
                 }
             } else {
-                echo "Tidak Menemukan Data Siswa !";
+                $response = [
+                    "status" => "F",
+                    "message" => "Tidak Menemukan Data Siswa !"
+                ];
+                echo json_encode($response);
+                die();
             }
         } else {
-            echo "PIN Kosong !";
+            $response = [
+                "status" => "F",
+                "message" => "PIN Kosong !"
+            ];
+            echo json_encode($response);
+            die();
         }
     }
 
@@ -355,21 +414,6 @@ class Transaksi extends BaseController
 
 
         return redirect()->to(base_url('petugas/transaksi/struk/' . $trx . '/' . $id));
-    }
-
-    public function update_status_transaksi()
-    {
-        if (isset($_POST['id'])) {
-            $update = $this->transaksi
-                ->where(['id' => $_POST['id'], 'id_siswa' => session()->get('id'), 'status' => 0])
-                ->set(['status' => 1])
-                ->update();
-            if ($update) {
-                echo "S";
-            } else {
-                echo "F";
-            }
-        }
     }
 
     public function struk($trx, $id)

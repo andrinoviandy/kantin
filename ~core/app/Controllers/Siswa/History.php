@@ -22,7 +22,7 @@ class History extends BaseController
             'segment'   => $this->request->uri->getSegments(),
             'setting'   => $this->setting->find(1),
             'user'      => $this->ortu->find(session()->get('id')),
-            'transaksi' => $this->transaksi->where(['id_siswa' => session()->get('id'), 'status' => 1])->orderBy('id', 'desc')->findAll(20),
+            'transaksi' => $this->transaksi->where(['id_siswa' => session()->get('id')])->orderBy('id', 'desc')->findAll(20),
         ];
 
         return view('siswa/history/transaksi', $data);

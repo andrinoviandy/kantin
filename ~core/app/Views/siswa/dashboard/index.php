@@ -17,6 +17,10 @@
                         <i class="fa fa-bell"></i>
                         <p>Notifikasi</p>
                     </a>
+                    <a href="#" class="tab-link" onclick="location.href='<?= base_url('siswa/bayar') ?>'">
+                        <i class="fa fa-dollar-sign"></i>
+                        <p>Bayar</p>
+                    </a>
                     <a href="#" class="tab-link" onclick="location.href='<?= base_url('siswa/transaksi') ?>'">
                         <i class="fa fa-shopping-cart"></i>
                         <p>Pesanan Aktif</p>
