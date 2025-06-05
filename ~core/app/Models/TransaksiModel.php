@@ -16,5 +16,5 @@ class TransaksiModel extends Model
     protected $createdField     = 'created_at';
     protected $updatedField     = 'updated_at';
     protected $deletedField     = 'deleted_at';
-    protected $allowedFields    = ['id', 'id_kantin', 'id_petugas', 'id_siswa', 'id_guru', 'no_transaksi', 'lunas', 'modal', 'total', 'status', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields    = ['id', 'id_kantin', 'id_petugas', 'id_siswa', 'id_guru', 'no_transaksi', 'lunas', 'modal', 'total', 'biaya_admin', 'status', 'created_at', 'updated_at', 'deleted_at'];
 }

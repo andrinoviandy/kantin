@@ -297,6 +297,10 @@ class Bayar extends BaseController
                                 'jumlah'        => $row['jumlah'],
                                 'ready'         => 0
                             ];
+                            $this->barang
+                                ->where(['id' => $row['id_barang']])
+                                ->set('stok', 'stok - ' . (int)$row['jumlah'], false)
+                                ->update();
                         }
 
                         if (!empty($finalData)) {

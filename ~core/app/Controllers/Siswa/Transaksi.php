@@ -82,6 +82,10 @@ class Transaksi extends BaseController
                                     ';
             }
             $output .= '        <tr>
+                                    <td align="center" colspan="4">Biaya Admin</td>
+                                    <td align="right">' . number_format(intval($detail[0]->biaya_admin), 0, '.', '.') . '</td>
+                                </tr>
+                                <tr>
                                     <td align="center" colspan="4">TOTAL</td>
                                     <td align="right">' . number_format($total + intval($detail[0]->biaya_admin), 0, '.', '.') . '</td>
                                 </tr>
@@ -131,6 +135,7 @@ class Transaksi extends BaseController
                 $output .= '
                 <div class="" style="width: 50%;">
                     <div class="background-white box-shadow border-radius padding-box-middle">
+                    '.$b->kantin.'
                     <div class="ribbon-wrapper">
                         <img src="' . base_url('assets/food/' . $b->foto) . '" height="200px" alt="Gambar Menu"/>
                         <div class="ribbon">' . number_format($b->harga, 0, ',', '.') . '</div>
@@ -138,7 +143,7 @@ class Transaksi extends BaseController
                         <table width="100%">
                             <tr>
                                 <td>
-                                    ' . $b->kantin . '
+                                    ' . $b->nama . '
                                 </td>
                             </tr>
                         </table>
