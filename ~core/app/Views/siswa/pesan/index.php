@@ -7,7 +7,7 @@
         height: 150px;
         position: relative;
         background: #f0f0f0;
-        margin: 20px;
+        margin: 10px;
     }
 
     .ribbon {

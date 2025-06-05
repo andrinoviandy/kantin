@@ -142,8 +142,11 @@ class Transaksi extends BaseController
                     </div>    
                         <table width="100%">
                             <tr>
-                                <td>
+                                <td align="left">
                                     ' . $b->nama . '
+                                </td>
+                                <td align="right">
+                                    <span class="fa fa-box"></span> ' . $b->stok . '
                                 </td>
                             </tr>
                         </table>
