@@ -39,8 +39,8 @@ class Transaksi extends BaseController
             ->where('id_siswa', session()->get('id'))
             ->join('barang', 'barang.id = transaksi_detail_temp.id_barang')
             ->first();
-
-        echo "Anda Sudah Memilih " . ($jumlah->total) . " Makanan/Minuman";
+        
+        echo "Anda Sudah Memilih <font style='color: orange; font-size: 20px;'>" . ($jumlah->total === null ? 0 : $jumlah->total) . "</font> Makanan/Minuman";
     }
 
     public function aktif()
