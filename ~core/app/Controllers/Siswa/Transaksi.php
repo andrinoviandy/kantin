@@ -39,7 +39,7 @@ class Transaksi extends BaseController
             ->where('id_siswa', session()->get('id'))
             ->join('barang', 'barang.id = transaksi_detail_temp.id_barang')
             ->first();
-        
+
         echo "Anda Sudah Memilih <font style='color: orange; font-size: 20px;'>" . ($jumlah->total === null ? 0 : $jumlah->total) . "</font> Makanan/Minuman";
     }
 
@@ -131,14 +131,25 @@ class Transaksi extends BaseController
                     $teks     = 'Tambah Item';
                 }
 
+                if ($b->stok <= 0) {
+                    $disable_stok = 'disabled';
+                    $background_stok = 'gray';
+                    $harga_stok = 'gray !important';
+                    $harga_value = 'Habis';
+                } else {
+                    $disable_stok = '';
+                    $background_stok = 'orangered';
+                    $harga_stok = '';
+                    $harga_value = number_format($b->harga, 0, ',', '.');
+                }
 
                 $output .= '
                 <div class="" style="width: 50%;">
                     <div class="background-white box-shadow border-radius padding-box-middle">
-                    '.$b->kantin.'
+                    ' . $b->kantin . '
                     <div class="ribbon-wrapper">
                         <img src="' . base_url('assets/food/' . $b->foto) . '" height="200px" alt="Gambar Menu"/>
-                        <div class="ribbon">' . number_format($b->harga, 0, ',', '.') . '</div>
+                        <div class="ribbon" style="background-color: ' . $harga_stok . '">' . $harga_value . '</div>
                     </div>    
                         <table width="100%">
                             <tr>
@@ -150,7 +161,7 @@ class Transaksi extends BaseController
                                 </td>
                             </tr>
                         </table>
-                        <button style="background-color: orangered; color:white; padding:5px; border:none; border-radius: 10px" onclick="addBarang(' . $b->id . '); return false;">Masukkan Keranjang</button>
+                        <button style="background-color: ' . $background_stok . '; color:white; padding:5px; border:none; border-radius: 10px; cursor:pointer" onclick="addBarang(' . $b->id . '); return false;" ' . $disable_stok . '>Masukkan Keranjang</button>
                     </div>
                 </div>
                 ';

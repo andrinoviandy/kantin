@@ -120,13 +120,15 @@
                     const response = JSON.parse(data)
                     if (response.status == 'S') {
                         await Swal.fire({
-                            title: response.message,
+                            title: 'Sukses !',
+                            text: response.message,
                             icon: 'success',
                         });
                         window.location = '<?= base_url('siswa/dashboard/') ?>'
                     } else {
                         Swal.fire({
-                            title: response.message,
+                            title: 'Gagal !',
+                            text: response.message,
                             icon: 'error',
                         });
                     }

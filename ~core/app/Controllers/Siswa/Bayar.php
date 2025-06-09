@@ -267,6 +267,19 @@ class Bayar extends BaseController
                         ->get()
                         ->getRow();
                     if ($data != null) {
+                        foreach ($data as $row) {
+                            $brg = $this->barang
+                                ->where(['id' => $row['id_barang']])->first();
+                            if ($brg->stok <= 0) {
+                                $response = [
+                                    "status" => "F",
+                                    "message" => $brg->nama . ' Kehabisan Stok Nih.. !!'
+                                ];
+                                echo json_encode($response);
+                                die();
+                            }
+                        }
+
                         $maxNoTransaksi = $this->transaksi
                             ->selectMax('no_transaksi')
                             ->get()
@@ -317,7 +330,7 @@ class Bayar extends BaseController
                                 $update_saldo = $this->ortu->save($up_saldo);
                                 $response = [
                                     "status" => "S",
-                                    "message" => "Transaksi Berhasil Di Simpan"
+                                    "message" => "Transaksi Berhasil Di Simpan. Lihat Status Pesanan Anda di Menu Pesanan Aktif"
                                 ];
                                 echo json_encode($response);
                                 die();
