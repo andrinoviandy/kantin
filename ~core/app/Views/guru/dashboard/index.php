@@ -13,13 +13,21 @@
                         <i class="fa fa-home"></i>
                         <p>Home</p>
                     </a>
-                    <a href="#tab-2" class="tab-link">
-                        <i class="fa fa-bell"></i>
-                        <p>Notifikasi</p>
-                    </a>
                     <a href="#" class="tab-link" onclick="location.href='<?= base_url('guru/deposit') ?>'">
                         <i class=" fas fa-wallet"></i>
                         <p>Deposit</p>
+                    </a>
+                    <!-- <a href="#tab-2" class="tab-link">
+                        <i class="fa fa-bell"></i>
+                        <p>Notifikasi</p>
+                    </a> -->
+                    <a href="#" class="tab-link" onclick="location.href='<?= base_url('guru/bayar') ?>'">
+                        <i class="fa fa-dollar-sign"></i>
+                        <p>Bayar</p>
+                    </a>
+                    <a href="#" class="tab-link" onclick="location.href='<?= base_url('guru/transaksi') ?>'">
+                        <i class="fa fa-shopping-cart"></i>
+                        <p>Pesanan Aktif</p>
                     </a>
                     <a href="#tab-5" class="tab-link">
                         <i class="fas fa-user"></i>
@@ -100,7 +108,7 @@
                                         <a href="" onclick="location.href='<?= base_url('guru/history/transaksi') ?>'">
                                             <div class="background-white text-center border-radius padding-box box-shadow">
                                                 <span class="icon-big icon-color-red"><i class="fa fa-redo"></i></span>
-                                                <h6 class="font-weight-500">Transaksi Saya</h6>
+                                                <h6 class="font-weight-500">Riw. Transaksi</h6>
                                             </div>
                                         </a>
                                     </div>
@@ -115,10 +123,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <a href="" onclick="location.href='<?= base_url('guru/profile/password') ?>'">
+                                        <a href="" onclick="location.href='<?= base_url('guru/pesan') ?>'">
                                             <div class="background-white text-center border-radius padding-box box-shadow">
-                                                <span class="icon-big icon-color-teal"><i class="fa fa-lock"></i></span>
-                                                <h6 class="font-weight-500">Ubah Password</h6>
+                                                <span class="icon-big icon-color-teal"><i class="fa fa-utensils"></i></span>
+                                                <h6 class="font-weight-500">Pesan</h6>
                                             </div>
                                         </a>
                                     </div>
@@ -324,12 +332,12 @@
                                         <div class="row row-no-margin-bottom">
                                             <div class="col-60">
                                                 <div class="float-left margin-right-small">
-                                                <?php if (!empty($user->foto)) : ?>
-                                                    <img class="people" src="<?= base_url('assets/client/guru/' . $user->foto) ?>">
-                                                <?php else : ?>
-                                                    <img class="people" src="<?= base_url() ?>/assets/client/images/author.jpg" alt="">
-                                                <?php endif ?>
-                                            </div>
+                                                    <?php if (!empty($user->foto)) : ?>
+                                                        <img class="people" src="<?= base_url('assets/client/guru/' . $user->foto) ?>">
+                                                    <?php else : ?>
+                                                        <img class="people" src="<?= base_url() ?>/assets/client/images/author.jpg" alt="">
+                                                    <?php endif ?>
+                                                </div>
                                                 <div class="overflow-hidden">
                                                     <h6><?= $user->nama ?></h6>
                                                     <p><?= $user->kode ?></p>

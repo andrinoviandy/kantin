@@ -26,7 +26,7 @@
 
                         <div class="overflow-hidden">
                             <span><?= format_indo($t->updated_at) ?></span>
-                            <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total, 0, ',', '.') ?></h6>
+                            <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total + $t->biaya_admin, 0, ',', '.') ?></h6>
                             <table width="100%" border="0">
                                 <tr>
                                     <th></th>
@@ -38,7 +38,7 @@
                                 <?php
                                 $idt = $t->id;
                                 $db = db_connect();
-                                $det = $db->query("SELECT transaksi_detail.*, barang.nama, barang.foto FROM transaksi_detail JOIN barang ON barang.id=transaksi_detail.id_barang WHERE id_transaksi='$idt'")->getResult();
+                                $det = $db->query("SELECT transaksi_detail.*, transaksi.biaya_admin, barang.nama, barang.foto FROM transaksi_detail JOIN barang ON barang.id=transaksi_detail.id_barang LEFT JOIN transaksi ON transaksi.id = transaksi_detail.id_transaksi WHERE transaksi_detail.id_transaksi='$idt'")->getResult();
 
                                 $total = 0;
                                 foreach ($det as $d) {
@@ -56,8 +56,12 @@
                                 }
                                 ?>
                                 <tr>
-                                    <td align="center" colspan="4">TOTAL</td>
-                                    <td align="right"><?= number_format($total, 0, '.', '.')  ?></td>
+                                    <td align="right" colspan="4">Biaya Admin</td>
+                                    <td align="right"><?= number_format(intval($det[0]->biaya_admin), 0, '.', '.')  ?></td>
+                                </tr>
+                                <tr>
+                                    <td align="right" colspan="4">TOTAL</td>
+                                    <td align="right"><?= number_format($total + intval($det[0]->biaya_admin), 0, '.', '.')  ?></td>
                                 </tr>
                             </table>
                         </div>

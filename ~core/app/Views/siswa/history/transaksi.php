@@ -26,7 +26,7 @@
 
                         <div class="overflow-hidden">
                             <span><?= format_indo($t->updated_at) ?></span>
-                            <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total, 0, ',', '.') ?></h6>
+                            <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total + $t->biaya_admin, 0, ',', '.') ?></h6>
                             <table width="100%" border="0">
                                 <tr>
                                     <th></th>
