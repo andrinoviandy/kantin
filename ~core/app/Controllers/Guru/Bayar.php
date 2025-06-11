@@ -260,7 +260,10 @@ class Bayar extends BaseController
                         echo json_encode($response);
                         die();
                     }
-                    $data = $this->transaksi_detail_temp->where('id_guru', session()->get('id'))->get()->getResultArray();
+                    $data = $this->transaksi_detail_temp
+                        ->where('id_guru', session()->get('id'))
+                        ->join('barang', 'barang.id = transaksi_detail_temp.id_barang')
+                        ->get()->getResultArray();
                     $sumModal = $this->transaksi_detail_temp
                         ->selectSum('modal')
                         ->where('id_guru', session()->get('id'))
@@ -285,7 +288,7 @@ class Bayar extends BaseController
                             ->get()
                             ->getRow();
                         $post = [
-                            // 'id_kantin'    => $kantin->id,
+                            'id_kantin'    => $data[0]['id_kantin'],
                             // 'id_petugas'   => session()->get('id'),
                             'id_guru'     => session()->get('id'),
                             'no_transaksi' => intval($maxNoTransaksi->no_transaksi) + 1,
