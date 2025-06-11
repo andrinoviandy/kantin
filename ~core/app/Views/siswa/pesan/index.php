@@ -133,8 +133,8 @@
 
     function addBarang(id_barang) {
         $.ajax({
-            // url: "<?= base_url('siswa/transaksi/check_aktif') ?>",
-            url: "<?= base_url('siswa/transaksi/check_kantin') ?>",
+            url: "<?= base_url('siswa/transaksi/check_aktif') ?>",
+            // url: "<?= base_url('siswa/transaksi/check_kantin') ?>",
             data: {
                 id_barang: id_barang
             },
