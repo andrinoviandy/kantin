@@ -131,6 +131,10 @@ class Transaksi extends BaseController
 
     public function cari()
     {
+        if (session()->get('logged_guru') == null) {
+            return redirect()->to(base_url('login'));
+        }
+
         if (isset($_POST["id_kantin"]) && $_POST['id_kantin'] !== 'all') {
             if (isset($_POST['query']) && $_POST['query'] !== '') {
                 $b = $this->barang
