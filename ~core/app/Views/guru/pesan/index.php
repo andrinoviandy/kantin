@@ -7,7 +7,8 @@
         height: 150px;
         position: relative;
         background: #f0f0f0;
-        margin: 10px;
+        /* margin: 10px; */
+        overflow: hidden;
     }
 
     .ribbon {
@@ -45,6 +46,31 @@
         <!-- deposit -->
         <div class="margin-pages">
             <div class="row" style="padding: 10px; margin-bottom: 50px">
+                <div class="row" style="width: 100%">
+                    <table width="100%" style="width: 100%; margin-top:10px;">
+                        <tr>
+                            <td>Kantin</td>
+                            <td>:</td>
+                            <td><select class="form-select" style="background-color:white; padding-top: 10px; padding-bottom: 10px; padding-left:15px; padding-right:20px; border-radius: 20px" onchange="pilihKantin(this.value); return false;" id="id_kantin">
+                                    <option value="all">Semua</option>
+                                    <?php
+                                    $db = db_connect();
+                                    $det = $db->query("select id, nama from kantin order by nama asc")->getResult();
+
+                                    foreach ($det as $d) {
+                                        echo '
+                                        <option value="' . $d->id . '">' . $d->nama . '</option>
+                                        ';
+                                    }
+                                    ?>
+                                </select></td>
+                            <td></td>
+                            <td>Cari</td>
+                            <td>:</td>
+                            <td><input type="text" name="nama" placeholder="Cari Makanan/Minuman" style="background-color:white; padding-top: 10px; padding-bottom: 10px; padding-left:15px; padding-right:20px; border-radius: 20px; width: 100%" onkeyup="cariData(this.value); return false;" id="cari"></td>
+                        </tr>
+                    </table>
+                </div>
                 <div id="result" class="row"></div>
             </div>
             <div onclick="location.href='<?= base_url('guru/bayar/') ?>'" id="selected-info" style="

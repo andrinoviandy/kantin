@@ -106,20 +106,59 @@ class Transaksi extends BaseController
 
     public function cari()
     {
-        if (isset($_POST["query"])) {
-            $b = $this->barang
-                ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
-                ->join('kantin', 'kantin.id=barang.id_kantin')
-                // ->where(['kantin.petugas' => session()->get('id'), 'barang.deleted_at' => null])
-                ->like('barang.nama', $_POST['query'])->orLike('barang.kode', $_POST['query'])->findAll();
+        if (session()->get('logged_siswa') == null) {
+            return redirect()->to(base_url('login'));
+        }
+
+        if (isset($_POST["id_kantin"]) && $_POST['id_kantin'] !== 'all') {
+            if (isset($_POST['query']) && $_POST['query'] !== '') {
+                $b = $this->barang
+                    ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
+                    ->join('kantin', 'kantin.id=barang.id_kantin')
+                    // ->where(['kantin.petugas' => session()->get('id'), 'barang.deleted_at' => null])
+                    ->where('barang.id_kantin', $_POST['id_kantin'])
+                    ->like('barang.nama', $_POST['query'])
+                    ->orderBy('RAND()')
+                    ->findAll();
+            } else {
+                $b = $this->barang
+                    ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
+                    ->join('kantin', 'kantin.id=barang.id_kantin')
+                    // ->where(['kantin.petugas' => session()->get('id'), 'barang.deleted_at' => null])
+                    ->where('barang.id_kantin', $_POST['id_kantin'])
+                    ->orderBy('RAND()')
+                    ->findAll();
+            }
         } else {
-            $b = $this->barang
-                ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
-                ->join('kantin', 'kantin.id=barang.id_kantin')->findAll();
-            // ->where(['kantin.petugas' => session()->get('id'), 'barang.deleted_at' => null])->findAll();
+            if (isset($_POST['query']) && $_POST['query'] !== '') {
+                $b = $this->barang
+                    ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
+                    ->join('kantin', 'kantin.id=barang.id_kantin')
+                    ->like('barang.nama', $_POST['query'])
+                    ->orderBy('RAND()')
+                    ->findAll();
+            } else {
+                $b = $this->barang
+                    ->select('barang.id, barang.kode, barang.nama, barang.modal, barang.harga, barang.stok, barang.terjual, barang.foto, kantin.nama as kantin')
+                    ->join('kantin', 'kantin.id=barang.id_kantin')
+                    ->orderBy('RAND()')
+                    ->findAll();
+                // ->where(['kantin.petugas' => session()->get('id'), 'barang.deleted_at' => null])->findAll();
+            }
         }
         $output = '';
         if ($b != null) {
+            $length = count($b);
+            $kantin = $this->kantin
+                ->select('id, nama')
+                ->findAll();
+
+            // $output .= '<select class="form-control" name="id_kantin" id="id_kantin">';
+            // $output .= '<option value="all">Semua</option>';
+            // foreach ($kantin as $c) {
+            //     $output .= '<option value="' . $c->id . '">' . $c->nama . '</option>';
+            // }
+            // $output .= '<select class="form-control" name="id_kantin" id="id_kantin">';
             foreach ($b as $b) {
                 if ($b->stok == 0) {
                     $disabled = 'btn-warning disabled';
@@ -143,21 +182,25 @@ class Transaksi extends BaseController
                     $harga_value = number_format($b->harga, 0, ',', '.');
                 }
 
+                $width = '49%';
+                if ($length === 1) {
+                    $width = '100%';
+                }
                 $output .= '
-                <div class="" style="width: 50%;">
+                <div class="" style="width: ' . $width . '; margin-bottom: 10px;">
                     <div class="background-white box-shadow border-radius padding-box-middle">
                     ' . $b->kantin . '
-                    <div class="ribbon-wrapper">
-                        <img src="' . base_url('assets/food/' . $b->foto) . '" height="200px" alt="Gambar Menu"/>
-                        <div class="ribbon" style="background-color: ' . $harga_stok . '">' . $harga_value . '</div>
-                    </div>    
+                        <div class="ribbon-wrapper">
+                            <img src="' . base_url('assets/food/' . $b->foto) . '" height="auto" alt="Gambar Menu"/>
+                            <div class="ribbon" style="background-color: ' . $harga_stok . '">' . $harga_value . '</div>
+                        </div>    
                         <table width="100%">
                             <tr>
                                 <td align="left">
                                     ' . $b->nama . '
                                 </td>
                                 <td align="right">
-                                    <span class="fa fa-box"></span> ' . $b->stok . '
+                                    <span class="fa fa-box"> ' . $b->stok . '</span>
                                 </td>
                             </tr>
                         </table>
