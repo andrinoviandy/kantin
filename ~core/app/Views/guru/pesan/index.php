@@ -121,7 +121,11 @@
 
     function addBarang(id_barang) {
         $.ajax({
-            url: "<?= base_url('guru/transaksi/check_aktif') ?>",
+            // url: "<?= base_url('guru/transaksi/check_aktif') ?>",
+            url: "<?= base_url('guru/transaksi/check_kantin') ?>",
+            data: {
+                id_barang: id_barang
+            },
             method: "POST",
             success: function(data) {                
                 if (data === 'S') {
@@ -164,11 +168,82 @@
                             }
                         }
                     });
+                } else if (data === 'T') {
+                    Swal.fire({
+                        title: 'Mohon Konfirmasi ?',
+                        text: "Makanan/Minuman Yang Anda Pilih Ada Di Kantin Berbeda , Jika Ingin Tetap Ingin Makanan/Minuman Ini , Pesanan Yang di Keranjang Akan Dihapus Dulu. Pilih Ya Untuk Melanjutkan !",
+                        icon: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya, Lanjut!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "<?= base_url('guru/transaksi/addNew') ?>",
+                                method: "POST",
+                                data: {
+                                    id_barang: id_barang
+                                },
+                                success: function(data) {
+                                    if (data === 'S') {
+                                        Swal.fire({
+                                            title: 'Berhasil Disimpan Ke Pesanan',
+                                            icon: 'success',
+                                            toast: true,
+                                            timer: 2000, // 2 detik
+                                            timerProgressBar: true,
+                                            position: 'top-end', // agar muncul di pojok kanan atas
+                                            showConfirmButton: false, // jangan tampilkan tombol OK
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                        });
+                                        load_count_data()
+                                    } else {
+                                        Swal.fire({
+                                            title: 'Gagal Dimasukkan Pesanan',
+                                            icon: 'error',
+                                            toast: true,
+                                            timer: 2000, // 2 detik
+                                            timerProgressBar: true,
+                                            position: 'top-end', // agar muncul di pojok kanan atas
+                                            showConfirmButton: false, // jangan tampilkan tombol OK
+                                            didOpen: (toast) => {
+                                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                            // $.ajax({
+                            //     url: "<?= base_url('guru/bayar/delete') ?>",
+                            //     method: "POST",
+                            //     data: {
+                            //         id: id
+                            //     },
+                            //     success: function(data) {
+                            //         if (data == 'S') {
+                            //             load_data()
+                            //             Swal.fire('Berhasil Dihapus !')
+                            //         } else {
+                            //             Swal.fire('Gagal Dihapus !')
+                            //         }
+                            //     }
+                            // });
+                        }
+                    });
                 } else {
                     Swal.fire({
-                        title: 'Tidak Dapat Dilanjutkan !',
-                        text: 'Selesaikan Dulu Pesanan Aktif Anda',
+                        title: 'Gagal !',
+                        text: 'Gagal Disimpan',
                         icon: 'warning'
+                        // title: 'Tidak Dapat Dilanjutkan !',
+                        // text: 'Selesaikan Dulu Pesanan Aktif Anda',
+                        // icon: 'warning'
                     });
                 }
             }

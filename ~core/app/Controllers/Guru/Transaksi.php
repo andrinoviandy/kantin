@@ -32,6 +32,31 @@ class Transaksi extends BaseController
         }
     }
 
+    public function check_kantin()
+    {
+        $barang = $this->barang->where('id', $_POST['id_barang'])->first();
+        $kantin = $barang->id_kantin;
+        $detail = $this->transaksi_detail_temp
+            ->select('barang.id_kantin')
+            ->where(['id_guru' => session()->get('id')])
+            ->join('barang', 'barang.id = transaksi_detail_temp.id_barang')
+            ->orderBy('transaksi_detail_temp.id', 'DESC')
+            ->findAll();
+        // var_dump($kantin); die();
+        // var_dump($detail[0]->id_kantin); die();
+        if (count($detail) == 0) {
+            echo "S";
+        } else {
+            if ($detail[0]->id_kantin === $kantin) {
+                echo "S";
+            } else if ($detail[0]->id_kantin !== $kantin) {
+                echo "T";
+            } else {
+                echo "F";
+            }
+        }
+    }
+
     public function count_aktif($id = null)
     {
         $jumlah = $this->transaksi_detail_temp
@@ -253,6 +278,43 @@ class Transaksi extends BaseController
                 echo "S"; // Berhasil
             } else {
                 echo "F"; // Gagal
+            }
+        }
+    }
+
+    public function addNew()
+    {
+        if (isset($_POST["id_barang"])) {
+            $hapus_temp = $this->transaksi_detail_temp
+                ->where('id_guru', session()->get('id'))
+                ->delete();
+            if ($hapus_temp) {
+                $ada_barang = $this->transaksi_detail_temp->where(['id_guru' => session()->get('id'), 'id_barang' => $_POST["id_barang"]])->first();
+                $cek = $this->barang->find($_POST["id_barang"]);
+                if ($ada_barang == null) {
+                    $post = [
+                        'id_guru'      => session()->get('id'),
+                        'id_barang'    => $_POST["id_barang"],
+                        'modal'        => $cek->modal,
+                        'harga'        => $cek->harga,
+                        'jumlah'       => 1,
+                    ];
+                } else {
+                    $post = [
+                        'id'           => $ada_barang->id,
+                        'id_guru'      => session()->get('id'),
+                        'id_barang'    => $_POST["id_barang"],
+                        'modal'        => $cek->modal,
+                        'harga'        => $cek->harga,
+                        'jumlah'       => $ada_barang->jumlah + 1,
+                    ];
+                }
+
+                if ($this->transaksi_detail_temp->save($post)) {
+                    echo "S"; // Berhasil
+                } else {
+                    echo "F"; // Gagal
+                }
             }
         }
     }
