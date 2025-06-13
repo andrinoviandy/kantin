@@ -34,6 +34,7 @@
                             <th class="text-end">Total Modal</th>
                             <th class="text-end">Total Belanja</th>
                             <th class="text-end">Total Laba</th>
+                            <th class="text-end">Biaya Admin</th>
                             <th class="text-end">Struk</th>
                         </thead>
                         <tbody>
@@ -50,6 +51,7 @@
                                         <td align="right"><?= uang($t->modal) ?></td>
                                         <td align="right"><?= uang($t->total) ?></td>
                                         <td align="right"><?= uang($t->total - $t->modal) ?></td>
+                                        <td align="right"><?= uang($t->biaya_admin) ?></td>
                                         <?php if (is_null($t->id_guru)) : ?>
                                         <td align="right"><a href="<?= base_url() ?>/petugas/transaksi/struk/siswa/<?= $t->id ?>" target="_blank"><button class="btn btn-primary mb-3">Lihat Struk</button></a></td>
                                         <?php else : ?>

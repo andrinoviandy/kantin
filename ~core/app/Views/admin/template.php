@@ -85,7 +85,7 @@
                 </div>
             </header>
 
-            <?php if ($segment[1] != 'transaksi') : ?>
+            <?php if ($segment[1] != 'transaksi' || $segment[2] == 'ready') : ?>
                 <div class="vertical-menu">
 
                     <div class="h-100">
@@ -273,9 +273,9 @@
                                         </a>
                                     </li> -->
                                     <li <?= ($dir == 'petugas' && $menu == 'transaksi') ? 'class="mm-active"' : '' ?>>
-                                        <a href="<?= base_url('petugas/transaksi/ready') ?>" class=" waves-effect <?= ($menu == 'transaksi') ? 'class="mm-active"' : '' ?>">
+                                        <a href="<?= base_url('petugas/aktif') ?>" class=" waves-effect <?= ($menu == 'transaksi') ? 'class="mm-active"' : '' ?>">
                                             <i class="mdi mdi-cart"></i>
-                                            <span>Transaksi Aktif</span>
+                                            <span>Pesanan Aktif</span>
                                         </a>
                                     </li>
 

@@ -248,6 +248,12 @@
                             // });
                         }
                     });
+                } else if (data === 'A3') {
+                    Swal.fire({
+                        title: 'Tidak Dapat Dilanjutkan !',
+                        text: 'Mohon Untuk Menyelesaikan Pesanan Aktif Anda',
+                        icon: 'warning'
+                    });
                 } else {
                     Swal.fire({
                         title: 'Gagal !',

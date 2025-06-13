@@ -4,7 +4,7 @@ namespace App\Controllers\Petugas;
 
 use App\Controllers\BaseController;
 
-class Transaksi extends BaseController
+class Aktif extends BaseController
 {
 
     public function index()
@@ -14,14 +14,14 @@ class Transaksi extends BaseController
         }
 
         $data = [
-            'title'   => 'Transaksi',
+            'title'   => 'Pesanan Aktif',
             'session' => session()->get(),
             'segment' => $this->request->uri->getSegments(),
             'admin'   => $this->admin->find(session()->get('id')),
             'barang'  => $this->barang->findAll(),
         ];
 
-        return view('petugas/transaksi/index', $data);
+        return view('petugas/aktif/index', $data);
     }
 
     public function aktif($id = null)
@@ -86,6 +86,129 @@ class Transaksi extends BaseController
         ];
 
         return view('petugas/transaksi/aktif', $data);
+    }
+
+    public function ready()
+    {
+        if (session()->get('logged_in') == null && session()->get('level_kantin') == false) {
+            return redirect()->to(base_url('login'));
+        }
+
+        $kantin = $this->kantin->where('petugas', session()->get('id'))->first();
+        $id_kantin = $kantin->id;
+        $db = db_connect();
+        $t = $db->query("SELECT transaksi.*, transaksi_detail.*, transaksi_detail.id as id_detail, barang.* FROM transaksi_detail left join transaksi on transaksi.id = transaksi_detail.id_transaksi left join barang on barang.id = transaksi_detail.id_barang WHERE transaksi.lunas='1' AND transaksi.status = '0' and transaksi_detail.ready = '0' AND transaksi.id_kantin='$id_kantin' ORDER BY transaksi.created_at asc")->getResult();
+
+        if ($t != null) {
+            $output = '';
+            $no = 0;
+            foreach ($t as $b) {
+                $no++;
+
+                $output .= '
+                <tr>
+                    <td>' . $no . '</td>
+                    <td>' . $b->created_at . '</td>
+                    <td>' . $b->no_transaksi . '</td>
+                    <td><img src="' . base_url('assets/food/' . $b->foto) . '" alt="Card image cap" width="100px" style="border-radius: 20px"></td>
+                    <td>' . $b->nama . '</td>
+                    <td style="font-size: 20px; font-weight:bolder">' . $b->jumlah . '</td>
+                    <td>' . number_format($b->jumlah * $b->harga, 0, ',', '.') . '</td>
+                    <td>
+                    <div class="col">
+                        <button class="btn-primary text-white rounded mb-1" onclick="onReady(' . $b->id_detail . '); return false;">Ready</button><br>
+                        <button class="btn-danger text-white rounded" onclick="onBatal(' . $b->id_detail . '); return false;">Batal & Refund</button>
+                    </div>
+                    </td>
+                </tr>
+                ';
+            }
+            echo $output;
+        } else {
+            echo '<tr>
+                <td colspan="8" align="center">Tidak Ada Pesanan Aktif</td>
+            </tr>';
+        }
+        // $data = [
+        //     'title'     => 'Transaksi Aktif',
+        //     'session'   => session()->get(),
+        //     'segment'   => $this->request->uri->getSegments(),
+        //     'admin'     => $this->admin->find(session()->get('id')),
+        //     'transaksi' => $t,
+        // ];
+
+        // return view('petugas/transaksi/ready', $data);
+    }
+
+    public function update_status_pesanan()
+    {
+        if (isset($_POST['id'])) {
+            $update = $this->transaksi_detail
+                ->set(['ready' => 1])
+                ->where('id', $_POST['id'])
+                ->update();
+            if ($update) {
+                echo "S";
+            } else {
+                echo "F";
+            }
+        }
+    }
+
+    public function update_status_refund()
+    {
+        if (isset($_POST['id'])) {
+            $data = $this->transaksi_detail->where('id', $_POST['id'])->first();
+            $total = $data->harga * $data->jumlah;
+            $head = $this->transaksi->where('id', $data->id_transaksi)->first();
+
+            $post = [
+                'id_transaksi' => $data->id_transaksi,
+                'id_barang'    => $data->id_barang,
+                'modal'        => $data->modal,
+                'harga'        => $data->harga,
+                'jumlah'       => $data->jumlah,
+            ];
+            $save = $this->transaksi_detail_batal->save($post);
+            if ($save) {
+                if ($head->id_siswa != '') {
+                    //update saldo
+                    $ortu = $this->ortu->where('id_siswa', $head->id_siswa)->first();
+                    $up_saldo = [
+                        'id'     => $ortu->id,
+                        'saldo'  => $ortu->saldo + $total,
+                    ];
+                    $this->ortu->save($up_saldo);
+                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
+                    if (count($jml) == 1) {
+                        $this->transaksi
+                            ->set(['status' => 2])
+                            ->where('id', $data->id_transaksi)
+                            ->update();
+                    }
+                }
+                if ($head->id_guru != '') {
+                    //update saldo
+                    $guru = $this->guru->where('id', $head->id_guru)->first();
+                    $up_saldo = [
+                        'id'     => $head->id_guru,
+                        'saldo'  => $guru->saldo + $total,
+                    ];
+                    $this->guru->save($up_saldo);
+                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
+                    if (count($jml) == 1) {
+                        $this->transaksi
+                            ->set(['status' => 2])
+                            ->where('id', $data->id_transaksi)
+                            ->update();
+                    }
+                }
+                $this->transaksi_detail->where('id', $_POST['id'])->delete();
+                echo "S";
+            } else {
+                echo "F";
+            }
+        }
     }
 
     public function cari()

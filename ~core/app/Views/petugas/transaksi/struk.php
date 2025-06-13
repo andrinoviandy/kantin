@@ -78,8 +78,19 @@
                                 <?php $total += ($detail->jumlah * $detail->harga) ?>
                             <?php endforeach ?>
                             <tr>
-                                <td colspan="2" style="border-top: 1px dashed #ddd;">TOTAL</td>
+                                <td colspan="3" style="padding-top: 15px;"></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 1px dashed #ddd;">Sub Total</td>
                                 <td align="right" style="border-top: 1px dashed #ddd;"><?= number_format($total, 0, ',', '.') ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 1px dashed #ddd;">Biaya Admin</td>
+                                <td align="right" style="border-top: 1px dashed #ddd;"><?= number_format($transaksi_aktif->biaya_admin, 0, ',', '.') ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border-top: 1px dashed #ddd;">TOTAL</td>
+                                <td align="right" style="border-top: 1px dashed #ddd;"><?= number_format($total + $transaksi_aktif->biaya_admin, 0, ',', '.') ?></td>
                             </tr>
                             <?php if (!empty($siswa)) : ?>
                                 <tr>
@@ -101,7 +112,7 @@
                     <div class="d-grid gap-2">
                         <a href="#" class="btn btn-success mt-3" onclick="printDiv('cetak')">CETAK STRUK</a>
                         <a href="<?= base_url('petugas/dashboard') ?>" class="btn btn-primary">DASHBOARD</a>
-                        <a href="<?= base_url('petugas/transaksi/aktif') ?>" class="btn btn-info">TRANSAKSI BARU</a>
+                        <!-- <a href="<?= base_url('petugas/transaksi/aktif') ?>" class="btn btn-info">TRANSAKSI BARU</a> -->
                     </div>
                 </div>
             </div>

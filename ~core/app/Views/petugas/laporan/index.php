@@ -52,6 +52,7 @@
                             <th class="text-end">Total Modal</th>
                             <th class="text-end">Total Belanja</th>
                             <th class="text-end">Total Laba</th>
+                            <th class="text-end">Biaya Admin</th>
                         </thead>
                         <tbody>
                             <?php if (!empty($transaksi)) : ?>
@@ -59,6 +60,7 @@
                                 <?php $total_modal = 0; ?>
                                 <?php $total_belanja = 0; ?>
                                 <?php $total_laba = 0; ?>
+                                <?php $total_biaya_admin = 0; ?>
                                 <?php foreach ($transaksi as $t) : ?>
                                     <tr>
                                         <td><?= $no++ ?></td>
@@ -67,9 +69,11 @@
                                         <td align="right"><?= uang($t->modal) ?></td>
                                         <td align="right"><?= uang($t->total) ?></td>
                                         <td align="right"><?= uang($t->total - $t->modal) ?></td>
+                                        <td align="right"><?= uang($t->biaya_admin) ?></td>
                                     </tr>
                                     <?php $total_modal += $t->modal; ?>
                                     <?php $total_belanja += $t->total; ?>
+                                    <?php $total_biaya_admin += $t->biaya_admin; ?>
                                     <?php $total_laba += ($t->total - $t->modal); ?>
                                 <?php endforeach ?>
                                 <tr>
@@ -77,6 +81,7 @@
                                     <td align="right"><?= uang($total_modal) ?></td>
                                     <td align="right"><?= uang($total_belanja) ?></td>
                                     <td align="right"><?= uang($total_laba) ?></td>
+                                    <td align="right"><?= uang($total_biaya_admin) ?></td>
                                 </tr>
                             <?php else : ?>
 

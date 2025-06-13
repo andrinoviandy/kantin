@@ -44,15 +44,22 @@ class Transaksi extends BaseController
             ->findAll();
         // var_dump($kantin); die();
         // var_dump($detail[0]->id_kantin); die();
-        if (count($detail) == 0) {
-            echo "S";
+        $jumlah = count($this->transaksi
+            ->where(['id_siswa' => session()->get('id'), 'status' => 0])
+            ->findAll());
+        if ($jumlah == 3) {
+            echo "A3";
         } else {
-            if ($detail[0]->id_kantin === $kantin) {
+            if (count($detail) == 0) {
                 echo "S";
-            } else if ($detail[0]->id_kantin !== $kantin) {
-                echo "T";
             } else {
-                echo "F";
+                if ($detail[0]->id_kantin === $kantin) {
+                    echo "S";
+                } else if ($detail[0]->id_kantin !== $kantin) {
+                    echo "T";
+                } else {
+                    echo "F";
+                }
             }
         }
     }
@@ -70,59 +77,63 @@ class Transaksi extends BaseController
 
     public function aktif()
     {
-        $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi.biaya_admin, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
+        $transaksi    = $this->transaksi->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
+        // $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi.biaya_admin, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id_siswa' => session()->get('id'), 'transaksi.status' => 0])->findAll();
 
         $output = '';
-        if ($detail != null) {
-            $output .= '<div class="background-white box-shadow border-radius padding-box-middle" style="width:100%">
-                        <div>No. Nota : ' . $detail[0]->no_transaksi . '</div>
-                        <div class="overflow-hidden">
-                            <table width="100%" border="0">
-                                <tr>
-                                    <th></th>
-                                    <th>Nama barang</th>
-                                    <th>Qty</th>
-                                    <th>Harga</th>
-                                    <th>Total</th>
-                                    <th>Status</th>
-                                </tr>';
-            $total = 0;
-            foreach ($detail as $d) {
-                $total +=  ($d->harga * $d->jumlah);
-                $output .= '
+        if ($transaksi != null) {
+            foreach ($transaksi as $t) {
+                $output .= '<div class="background-white box-shadow border-radius padding-box-middle" style="width:100%; margin-bottom:20px">
+                            <div style="font-weight: bold; color: gray">No. Nota : ' . $t->no_transaksi . '</div>
+                            <div class="overflow-hidden">
+                                <table width="100%" border="0">
                                     <tr>
-                                        <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20"></td>
-                                        <td>' . $d->nama . '<br></td>
-                                        <td  align="center">' . $d->jumlah . '</td>
-                                        <td align="center">' . number_format($d->harga, 0, ',', '.') . '</td>
-                                        <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
-                                        <td align="right">';
-                if ($d->ready == 1) {
-                    $output .= '<span class="fa fa-check text-color-green"></span>';
-                } else {
-                    $output .= '<span>Wait..</span>';
+                                        <th></th>
+                                        <th>Nama barang</th>
+                                        <th>Qty</th>
+                                        <th>Harga</th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                    </tr>';
+                $total = 0;
+                $detail    = $this->transaksi->select('transaksi.id,transaksi.no_transaksi, transaksi.modal, transaksi.total, transaksi.biaya_admin, transaksi_detail.id_barang, transaksi_detail.harga, transaksi_detail.jumlah, transaksi_detail.ready, barang.nama as nama, barang.foto')->join('transaksi_detail', 'transaksi.id=transaksi_detail.id_transaksi', 'inner')->join('barang', 'barang.id=transaksi_detail.id_barang')->where(['transaksi.id' => $t->id])->findAll();
+                foreach ($detail as $d) {
+                    $total +=  ($d->harga * $d->jumlah);
+                    $output .= '
+                                        <tr>
+                                            <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20" style="border-radius: 10px"></td>
+                                            <td align="center">' . $d->nama . '<br></td>
+                                            <td  align="center">' . $d->jumlah . '</td>
+                                            <td align="center">' . number_format($d->harga, 0, ',', '.') . '</td>
+                                            <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
+                                            <td align="center">';
+                    if ($d->ready == 1) {
+                        $output .= '<span class="fa fa-check text-color-green"></span>';
+                    } else {
+                        $output .= '<span>Wait..</span>';
+                    }
+                    $output .= '</td>
+                                        </tr>
+                                        ';
                 }
-                $output .= '</td>
+                $output .= '        <tr>
+                                        <td align="right" colspan="4">Biaya Admin</td>
+                                        <td align="right">' . number_format(intval($t->biaya_admin), 0, '.', '.') . '</td>
                                     </tr>
-                                    ';
+                                    <tr>
+                                        <td align="right" colspan="4">TOTAL</td>
+                                        <td align="right">' . number_format($t->total + intval($t->biaya_admin), 0, '.', '.') . '</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" align="right">
+                                            <button style="background-color: orangered; color:white; padding:5px; border:none; border-radius: 10px; width:50%" onclick="pesananSelesai(' . $t->id . '); return false;">Pesanan Selesai</button>
+                                        </td>
+                                    <tr>
+                                </table>
+                            </div>
+                            </div>
+                    ';
             }
-            $output .= '        <tr>
-                                    <td align="center" colspan="4">Biaya Admin</td>
-                                    <td align="right">' . number_format(intval($detail[0]->biaya_admin), 0, '.', '.') . '</td>
-                                </tr>
-                                <tr>
-                                    <td align="center" colspan="4">TOTAL</td>
-                                    <td align="right">' . number_format($total + intval($detail[0]->biaya_admin), 0, '.', '.') . '</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="6" align="left">
-                                        <button style="background-color: orangered; color:white; padding:5px; border:none; border-radius: 10px; width:50%" onclick="pesananSelesai(' . $detail[0]->id . '); return false;">Pesanan Selesai</button>
-                                    </td>
-                                <tr>
-                            </table>
-                        </div>
-                        </div>
-                ';
             echo $output;
         } else {
             echo "Tidak Ada Data";

@@ -18,6 +18,7 @@ use App\Models\BarangModel;
 use App\Models\DepositModel;
 use App\Models\TransaksiModel;
 use App\Models\Transaksi_detailModel;
+use App\Models\Transaksi_detail_batalModel;
 use App\Models\Transaksi_detail_tempModel;
 use App\Models\NotifikasiModel;
 use App\Models\Landing_headerModel;
@@ -56,6 +57,7 @@ class BaseController extends Controller
     protected $deposit;
     protected $transaksi;
     protected $transaksi_detail;
+    protected $transaksi_detail_batal;
     protected $transaksi_detail_temp;
     protected $notifikasi;
     protected $landing_header;
@@ -96,6 +98,7 @@ class BaseController extends Controller
         $this->deposit                = new DepositModel();
         $this->transaksi              = new TransaksiModel();
         $this->transaksi_detail       = new Transaksi_detailModel();
+        $this->transaksi_detail_batal = new Transaksi_detail_batalModel();
         $this->transaksi_detail_temp  = new Transaksi_detail_tempModel();
         $this->notifikasi             = new NotifikasiModel();
         $this->guru                   = new GuruModel();

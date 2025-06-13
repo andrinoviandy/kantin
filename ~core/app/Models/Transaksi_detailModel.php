@@ -10,5 +10,5 @@ class Transaksi_detailModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
-    protected $allowedFields    = ['id', 'id_transaksi', 'id_barang', 'modal', 'harga', 'jumlah'];
+    protected $allowedFields    = ['id', 'id_transaksi', 'id_barang', 'modal', 'harga', 'jumlah', 'ready'];
 }
