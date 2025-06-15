@@ -162,24 +162,38 @@ class Aktif extends BaseController
             $total = $data->harga * $data->jumlah;
             $head = $this->transaksi->where('id', $data->id_transaksi)->first();
 
-            $post = [
-                'id_transaksi' => $data->id_transaksi,
-                'id_barang'    => $data->id_barang,
-                'modal'        => $data->modal,
-                'harga'        => $data->harga,
-                'jumlah'       => $data->jumlah,
-            ];
-            $save = $this->transaksi_detail_batal->save($post);
-            if ($save) {
+            $update = $this->transaksi_detail
+                ->set(['ready' => 2])
+                ->where('id', $_POST['id'])
+                ->update();
+
+            if ($update) {
+                $up_transaksi = [
+                    'id'     => $data->id_transaksi,
+                    'modal'  => $head->modal - ($data->jumlah*$data->modal),
+                    'total'  => $head->total - ($data->jumlah*$data->harga)
+                ];
+                $this->transaksi->save($up_transaksi);
+                $brg = $this->barang->where('id', $data->id_barang)->first();
+                $up_stok = [
+                    'id'     => $data->id_barang,
+                    'stok'  => $brg->stok + $data->jumlah,
+                ];
+                $this->barang->save($up_stok);
                 if ($head->id_siswa != '') {
+                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
                     //update saldo
                     $ortu = $this->ortu->where('id_siswa', $head->id_siswa)->first();
+                    $nilai_saldo = $ortu->saldo + $total;
+                    if (count($jml) == 1) {
+                        $nilai_saldo += $head->biaya_admin;
+                    }
                     $up_saldo = [
                         'id'     => $ortu->id,
-                        'saldo'  => $ortu->saldo + $total,
+                        'saldo'  => $nilai_saldo,
                     ];
                     $this->ortu->save($up_saldo);
-                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
+
                     if (count($jml) == 1) {
                         $this->transaksi
                             ->set(['status' => 2])
@@ -188,14 +202,19 @@ class Aktif extends BaseController
                     }
                 }
                 if ($head->id_guru != '') {
+                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
                     //update saldo
                     $guru = $this->guru->where('id', $head->id_guru)->first();
+                    $nilai_saldo = $guru->saldo + $total;
+                    if (count($jml) == 1) {
+                        $nilai_saldo += $head->biaya_admin;
+                    }
                     $up_saldo = [
                         'id'     => $head->id_guru,
-                        'saldo'  => $guru->saldo + $total,
+                        'saldo'  => $nilai_saldo,
                     ];
                     $this->guru->save($up_saldo);
-                    $jml = $this->transaksi_detail->where('id_transaksi', $data->id_transaksi)->findAll();
+
                     if (count($jml) == 1) {
                         $this->transaksi
                             ->set(['status' => 2])
@@ -203,7 +222,6 @@ class Aktif extends BaseController
                             ->update();
                     }
                 }
-                $this->transaksi_detail->where('id', $_POST['id'])->delete();
                 echo "S";
             } else {
                 echo "F";

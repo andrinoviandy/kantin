@@ -108,7 +108,9 @@ class Transaksi extends BaseController
                                             <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
                                             <td align="center">';
                     if ($d->ready == 1) {
-                        $output .= '<span class="fa fa-check text-color-green"></span>';
+                        $output .= '<span class="text-color-green"> Ready</span>';
+                    } else if ($d->ready == 2) {
+                        $output .= '<span class="text-color-red"> Batal</span>';
                     } else {
                         $output .= '<span>Wait..</span>';
                     }

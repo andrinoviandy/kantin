@@ -25,8 +25,15 @@
                     <div class="background-white box-shadow border-radius padding-box-middle">
 
                         <div class="overflow-hidden">
-                            <span><?= format_indo($t->updated_at) ?></span>
-                            <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total + $t->biaya_admin, 0, ',', '.') ?></h6>
+                            <div class="row">
+                                <div>
+                                    <span><?= format_indo($t->updated_at) ?></span>
+                                    <h6 class="margin-bottom-5px">Transaksi sebesar: Rp. <?= number_format($t->total + $t->biaya_admin, 0, ',', '.') ?></h6>
+                                </div>
+                                <?php if ($t->status == 2) { ?>
+                                    <div class="float-right" style="color:red; font-weight: bolder">Transaksi Batal</div>
+                                <?php } ?>
+                            </div>
                             <table width="100%" border="0">
                                 <tr>
                                     <th></th>
@@ -42,17 +49,24 @@
 
                                 $total = 0;
                                 foreach ($det as $d) {
+                                    $text = '';
+                                    $total_harga = $d->harga * $d->jumlah;
+                                    if ($d->ready == 2 && $t->status != 2) {
+                                        $text = '<br><font style="color:red; font-weight: bold">Batal dan Refund</font>';
+                                        $total_harga = 0;
+                                    }
                                     echo '
                                     <tr>
-                                        <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20"></td>
-                                        <td>' . $d->nama . '</td>
+                                        <td width="50"><img src="' . base_url('assets/food/' . $d->foto) . '" height="20" style="border-radius: 15px"></td>
+                                        <td>' . $d->nama . '' . $text . '</td>
                                         <td  align="center">' . $d->jumlah . '</td>
                                         <td align="center">' . $d->harga . '</td>
-                                        <td align="right">' . number_format($d->harga * $d->jumlah, 0, '.', '.') . '</td>
+                                        <td align="right">' . number_format($total_harga, 0, '.', '.') . '</td>
                                     </tr>
                                     ';
-
-                                    $total +=  ($d->harga * $d->jumlah);
+                                    // if ($d->ready != 2) {
+                                    //     $total +=  ($d->harga * $d->jumlah);
+                                    // }
                                 }
                                 ?>
                                 <tr>
@@ -61,7 +75,7 @@
                                 </tr>
                                 <tr>
                                     <td align="center" colspan="4">TOTAL</td>
-                                    <td align="right"><?= number_format($total + intval($det[0]->biaya_admin), 0, '.', '.')  ?></td>
+                                    <td align="right"><?= number_format($t->total + intval($det[0]->biaya_admin), 0, '.', '.')  ?></td>
                                 </tr>
                             </table>
                         </div>

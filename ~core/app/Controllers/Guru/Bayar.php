@@ -265,7 +265,7 @@ class Bayar extends BaseController
                         ->join('barang', 'barang.id = transaksi_detail_temp.id_barang')
                         ->get()->getResultArray();
                     $sumModal = $this->transaksi_detail_temp
-                        ->selectSum('modal')
+                        ->select('SUM(modal * jumlah) AS total_modal')
                         ->where('id_guru', session()->get('id'))
                         ->get()
                         ->getRow();
@@ -292,7 +292,7 @@ class Bayar extends BaseController
                             // 'id_petugas'   => session()->get('id'),
                             'id_guru'     => session()->get('id'),
                             'no_transaksi' => intval($maxNoTransaksi->no_transaksi) + 1,
-                            'modal'        => $sumModal->modal,
+                            'modal'        => $sumModal->total_modal,
                             'total'        => $_POST['nominal_bayar'],
                             'biaya_admin'  => $_POST['nominal_admin'],
                             'lunas'        => 1,
