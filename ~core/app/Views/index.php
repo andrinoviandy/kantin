@@ -23,6 +23,85 @@
   <link rel="stylesheet" type="text/css" href="<?= base_url() ?>/assets/landing/css/style.css">
   <!-- responsive css -->
   <link href="<?= base_url() ?>/assets/landing/css/responsive.css" rel="stylesheet">
+  <style>
+    .logo-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      /* jarak antar gambar */
+      margin: 20px 0;
+    }
+
+    .logo-wrapper img {
+      height: 40px;
+      /* default untuk mobile */
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* Tablet: min-width 640px */
+    @media (min-width: 640px) {
+      .logo-wrapper img {
+        height: 70px;
+      }
+    }
+
+    /* Desktop: min-width 1024px */
+    @media (min-width: 1024px) {
+      .logo-wrapper img {
+        height: 100px;
+      }
+    }
+
+    @keyframes zoomRotate {
+
+      0%,
+      100% {
+        transform: scale(0.5) rotate(0deg);
+      }
+
+      50% {
+        transform: scale(1.6) rotate(9deg);
+        /* membesar & sedikit memutar */
+      }
+    }
+
+    .zoom-rotate-animation {
+      animation: zoomRotate 2s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+
+    @keyframes zoomRotateSwing {
+      0% {
+        transform: scale(0.5) rotate(0deg);
+      }
+
+      25% {
+        transform: scale(2) rotate(10deg);
+        /* sedikit membesar + putar kanan */
+      }
+
+      50% {
+        transform: scale(0.7) rotate(0deg);
+        /* kembali ke tengah */
+      }
+
+      75% {
+        transform: scale(2) rotate(-10deg);
+        /* sedikit membesar + putar kiri */
+      }
+
+      100% {
+        transform: scale(0.5) rotate(0deg);
+      }
+    }
+
+    .zoom-rotate-swing {
+      animation: zoomRotateSwing 3s ease-in-out infinite;
+      transition: transform 0.3s;
+    }
+  </style>
 </head>
 
 <body>
@@ -51,10 +130,10 @@
                 <a class="nav-link active text-nowrap" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/minimarket" ?>">Milu Mart Digital</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/minimarket" ?>">Milu Mart Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://").$_SERVER['HTTP_HOST']."/BANK" ?>">Bank Mini</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/BANK" ?>">Bank Mini</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active text-nowrap" aria-current="page" href="">Bisnis Lainnya</a>
@@ -88,8 +167,8 @@
         <img src="<?= base_url() ?>/assets/landing/images/cloud-01.png" alt="">
       </div>
     </div>
-    <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
-    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
+    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan_alfa.png" alt="" class="zoom-rotate-swing"></div>
+    <!-- <div class="animation-two" style="background-color: green;"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
   </header>
   <!-- ====================================
         End Header Here
@@ -145,6 +224,14 @@
         </div>
         <div class="col-12 col-md-4 col-lg-4">
 
+          <!-- <div class="activities-single-box d-flex justify-content-between" style="
+          background-image: url('<?= base_url() ?>/assets/landing/images/people_eat.png');
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          height: auto;
+          width: 100%;
+          "> -->
           <div class="activities-single-box d-flex justify-content-between">
             <div class="activites-text">
               <?= $kepala->moto1 ?>
@@ -192,6 +279,8 @@
     </div>
     <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
     <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
+    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan1.png" alt="" class="zoom-rotate-swing"></div>
+    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/makanan2.png" alt="" class="zoom-rotate-swing"></div>
   </section>
   <!-- ====================================
         End activities Area Here
@@ -302,7 +391,14 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4 clo-sm-6 cal-xxl-3">
-          <div class="call-to-action-img"><img src="<?= base_url() ?>/assets/landing/images/calltoaction.png" alt=""></div>
+          <div class="logo-wrapper">
+            <img src="<?= base_url() ?>/assets/landing/images/smk.png" alt="SMK">
+            <img src="<?= base_url() ?>/assets/landing/images/adiwiyata.png" alt="Adiwiyata">
+            <img src="<?= base_url() ?>/assets/landing/images/kabupaten_mempawah.png" alt="Kabupaten Mempawah">
+            <img src="<?= base_url() ?>/assets/landing/images/smk_bisa.png" alt="SMK Bisa">
+            <img src="<?= base_url() ?>/assets/landing/images/wonderful_mempawah.png" alt="Wonderful Mempawah">
+          </div>
+          <!-- <div class="call-to-action-img"><img src="<?= base_url() ?>/assets/landing/images/calltoaction.png" alt=""></div> -->
         </div>
         <div class="col-md-8 clo-sm-6 cal-xxl-9">
           <div class="call-to-action-text">
@@ -322,10 +418,10 @@
         </div>
       </div>
     </div>
-    <div class="call-shape-one"><img src="<?= base_url() ?>/assets/landing/images/white-cloud.png" alt=""></div>
-    <div class="call-shape-two"><img src="<?= base_url() ?>/assets/landing/images/white-cloud.png" alt=""></div>
+    <!-- <div class="call-shape-one"><img src="<?= base_url() ?>/assets/landing/images/white-cloud.png" alt=""></div> -->
+    <div class="call-shape-two"><img src="<?= base_url() ?>/assets/landing/images/makanan_alfa.png" alt="" class="zoom-rotate-animation"></div>
     <div class="call-shape-three"><img src="<?= base_url() ?>/assets/landing/images/dots.png" alt=""></div>
-    <div class="call-shape-four"><img src="<?= base_url() ?>/assets/landing/images/airplane.png" alt=""></div>
+    <!-- <div class="call-shape-four"><img src="<?= base_url() ?>/assets/landing/images/airplane.png" alt=""></div> -->
   </div>
   <!-- ====================================
         End Call to Action Area Here
