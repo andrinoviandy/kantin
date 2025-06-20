@@ -62,7 +62,7 @@
       }
 
       50% {
-        transform: scale(1.6) rotate(9deg);
+        transform: scale(1.2) rotate(9deg);
         /* membesar & sedikit memutar */
       }
     }
@@ -390,20 +390,10 @@
   <div class="call-to-action">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 clo-sm-6 cal-xxl-3">
-          <div class="logo-wrapper">
-            <img src="<?= base_url() ?>/assets/landing/images/smk.png" alt="SMK">
-            <img src="<?= base_url() ?>/assets/landing/images/adiwiyata.png" alt="Adiwiyata">
-            <img src="<?= base_url() ?>/assets/landing/images/kabupaten_mempawah.png" alt="Kabupaten Mempawah">
-            <img src="<?= base_url() ?>/assets/landing/images/smk_bisa.png" alt="SMK Bisa">
-            <img src="<?= base_url() ?>/assets/landing/images/wonderful_mempawah.png" alt="Wonderful Mempawah">
-          </div>
-          <!-- <div class="call-to-action-img"><img src="<?= base_url() ?>/assets/landing/images/calltoaction.png" alt=""></div> -->
-        </div>
-        <div class="col-md-8 clo-sm-6 cal-xxl-9">
+        <div class="col-md-12 clo-sm-12 cal-xxl-12">
           <div class="call-to-action-text">
             <div>
-              <h3>Tahap pengembangan Aplikasi E-CANTEEN dan E-MALL Layanan Bisnis Terpadu</h3>
+              <h3>Aplikasi E-CANTEEN dan E-MALL Layanan Bisnis Terpadu</h3>
               <p>@2025 - <a href="https://smkn1memhil.sch.id/" target="_blank" class="text-white">smkn1memhil.sch.id</a></p>
               <div class="footer-social">
                 <ul>
@@ -416,11 +406,26 @@
             </div>
           </div>
         </div>
+        <div>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 clo-sm-12 cal-xxl-8">
+          <div class="logo-wrapper">
+            <img src="<?= base_url() ?>/assets/landing/images/smk.png" alt="SMK">
+            <img src="<?= base_url() ?>/assets/landing/images/adiwiyata.png" alt="Adiwiyata">
+            <img src="<?= base_url() ?>/assets/landing/images/kabupaten_mempawah.png" alt="Kabupaten Mempawah">
+            <img src="<?= base_url() ?>/assets/landing/images/smk_bisa.png" alt="SMK Bisa">
+            <img src="<?= base_url() ?>/assets/landing/images/wonderful_mempawah.png" alt="Wonderful Mempawah">
+          </div>
+          <!-- <div class="call-to-action-img"><img src="<?= base_url() ?>/assets/landing/images/calltoaction.png" alt=""></div> -->
+        </div>
       </div>
     </div>
     <!-- <div class="call-shape-one"><img src="<?= base_url() ?>/assets/landing/images/white-cloud.png" alt=""></div> -->
     <div class="call-shape-two"><img src="<?= base_url() ?>/assets/landing/images/makanan_alfa.png" alt="" class="zoom-rotate-animation"></div>
-    <div class="call-shape-three"><img src="<?= base_url() ?>/assets/landing/images/dots.png" alt=""></div>
+    <!-- <div class="call-shape-three"><img src="<?= base_url() ?>/assets/landing/images/dots.png" alt=""></div> -->
     <!-- <div class="call-shape-four"><img src="<?= base_url() ?>/assets/landing/images/airplane.png" alt=""></div> -->
   </div>
   <!-- ====================================
