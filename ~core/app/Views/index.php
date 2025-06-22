@@ -199,27 +199,27 @@
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="<?= base_url() ?>/assets/landing/images/gal-3.jpg" class="d-block w-100" alt="Slide 1">
+          <img src="<?= base_url() ?>/assets/landing/images/slide1.jpg" class="d-block w-100" alt="Slide 1">
           <div class="carousel-caption d-block">
-            <h3>Lebih Cepat Lebih Gampang....</h3>
+            <h3>Makanan Nyaman...</h3>
             <br>
-            <p>Pesan di Kantin Digital Sekarang !</p>
+            <p>Yaa di <font style="color: #EB6025; font-weight: bold">Kantin Digital</font> Beli Nya !</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="<?= base_url() ?>/assets/landing/images/gal-2.jpg" class="d-block w-100" alt="Slide 2">
+          <img src="<?= base_url() ?>/assets/landing/images/slide2.jpg" class="d-block w-100" alt="Slide 2">
           <div class="carousel-caption d-block">
-            <h3>Lebih Efisien....</h3>
+            <h3>Belanja Hemat....</h3>
             <br>
-            <p>Pesan Sekarang , Jadi Sekarang !</p>
+            <p>Pilihan Nya <font style="color: #EB6025; font-weight: bold">Milu Mart</font> Saja !</p>
           </div>
         </div>
         <div class="carousel-item">
-          <img src="<?= base_url() ?>/assets/landing/images/gal-1.jpg" class="d-block w-100" alt="Slide 3">
+          <img src="<?= base_url() ?>/assets/landing/images/slide3.jpg" class="d-block w-100" alt="Slide 3">
           <div class="carousel-caption d-block">
-            <h3>Lebih Istimewa....</h3>
+            <h3>Keuangan Terasa Lebih Mudah....</h3>
             <br>
-            <p>Chef Profesional, Rasa Istimewa !</p>
+            <p>Gunakan Bank Mini Kami ! Mudah, Akurat dan Tepat !</p>
           </div>
         </div>
       </div>
