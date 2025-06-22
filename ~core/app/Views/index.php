@@ -215,7 +215,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="<?= base_url() ?>/assets/landing/images/slide3.jpg" class="d-block w-100" alt="Slide 3">
+          <img src="<?= base_url() ?>/assets/landing/images/slide33.jpg" class="d-block w-100" alt="Slide 3">
           <div class="carousel-caption d-block">
             <h3>Keuangan Terasa Lebih Mudah....</h3>
             <br>
