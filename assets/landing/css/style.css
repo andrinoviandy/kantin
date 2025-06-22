@@ -149,7 +149,7 @@ header {
 
 .carousel-caption {
     position: absolute;
-    top: 45%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.9);
     text-align: center;
