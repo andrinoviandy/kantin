@@ -405,107 +405,107 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
 
 .animation {
     position: absolute;
-    bottom: 5%;
+    bottom: 70%;
     left: 10%;
     animation: betterfly 5s infinite;
 }
 
 .animation-two {
     position: absolute;
-    bottom: 22%;
-    right: 0%;
+    bottom: 85%;
+    right: 10%;
     animation: betterfly-two 5s infinite;
 }
 
 @keyframes betterfly {
     10% {
-        bottom: 7%;
+        bottom: 70%;
     }
 
     15% {
-        bottom: 8%;
+        bottom: 71%;
     }
 
     20% {
-        bottom: 9%;
+        bottom: 72%;
     }
 
     30% {
-        bottom: 10%;
+        bottom: 73%;
     }
 
     35% {
-        bottom: 11%;
+        bottom: 74%;
     }
 
     40% {
-        bottom: 13%;
+        bottom: 76%;
     }
 
     45% {
-        bottom: 15%;
+        bottom: 78%;
     }
 
     50% {
-        bottom: 17%;
+        bottom: 80%;
     }
 
     55% {
-        bottom: 18%;
+        bottom: 82%;
     }
 
     60% {
-        bottom: 20%;
+        bottom: 84%;
     }
 
     65% {
-        bottom: 22%;
+        bottom: 86%;
     }
 }
 
 @keyframes betterfly-two {
     60% {
-        bottom: 7%;
+        bottom: 68%;
     }
 
     55% {
-        bottom: 8%;
+        bottom: 69%;
     }
 
     50% {
-        bottom: 9%;
+        bottom: 70%;
     }
 
     45% {
-        bottom: 10%;
+        bottom: 71%;
     }
 
     40% {
-        bottom: 11%;
+        bottom: 72%;
     }
 
     35% {
-        bottom: 13%;
+        bottom: 73%;
     }
 
     30% {
-        bottom: 15%;
+        bottom: 78%;
     }
 
     25% {
-        bottom: 17%;
+        bottom: 80%;
     }
 
     20% {
-        bottom: 18%;
+        bottom: 81%;
     }
 
     15% {
-        bottom: 20%;
+        bottom: 83%;
     }
 
     10% {
-        bottom: 22%;
+        bottom: 85%;
     }
 }
 

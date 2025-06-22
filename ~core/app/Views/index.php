@@ -284,6 +284,8 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
+          <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan1.png" alt="" class="zoom-rotate-swing"></div>
+          <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/makanan2.png" alt="" class="zoom-rotate-swing"></div>
           <div class="section-title">
             <?= $kepala->nama ?>
           </div>
@@ -345,8 +347,8 @@
     </div>
     <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/3.gif" alt=""></div>
     <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
-    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan1.png" alt="" class="zoom-rotate-swing"></div>
-    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/makanan2.png" alt="" class="zoom-rotate-swing"></div>
+    <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan1.png" alt="" class="zoom-rotate-swing"></div>
+    <div class="animation-two"><img src="<?= base_url() ?>/assets/landing/images/makanan2.png" alt="" class="zoom-rotate-swing"></div> -->
   </section>
   <!-- ====================================
         End activities Area Here
