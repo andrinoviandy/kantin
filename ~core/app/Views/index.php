@@ -174,7 +174,7 @@
                 <a class="nav-link active text-nowrap" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/minimarket" ?>">Milu Mart Digital</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/minimarket" ?>">MilMart Digital</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link active text-nowrap" aria-current="page" href="<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'] . "/BANK" ?>">Bank Mini</a>
@@ -244,7 +244,7 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-4 col-lg-4">
           <div class="header-box-single box-one">
-            <div class="box-text">
+            <div class="box-text" style="padding-right: 10%; text-align:justify;">
               <?= $featured->text1 ?>
             </div>
           </div>
@@ -252,7 +252,7 @@
         <!-- col-md-4 -->
         <div class="col-12 col-sm-12 col-md-4 col-lg-4">
           <div class="header-box-single box-two">
-            <div class="box-text">
+            <div class="box-text" style="padding-right: 10%; text-align:justify;">
               <?= $featured->text2 ?>
             </div>
           </div>
@@ -260,7 +260,7 @@
         <!-- col-md-4 -->
         <div class="col-12 col-sm-12 col-md-4 col-lg-4">
           <div class="header-box-single box-three">
-            <div class="box-text">
+            <div class="box-text" style="padding-right: 10%; text-align:justify;">
               <?= $featured->text3 ?>
             </div>
           </div>
@@ -461,7 +461,7 @@
         <div class="col-md-12 clo-sm-12 cal-xxl-12">
           <div class="call-to-action-text">
             <div>
-              <h3>Aplikasi E-CANTEEN dan E-MALL Layanan Bisnis Terpadu</h3>
+              <h3>Zona Edukasi Yang Transparansi dan Akurasi Dalam Layanan Bisnis Manajemen Terpadu</h3>
               <p>@2025 - <a href="https://smkn1memhil.sch.id/" target="_blank" class="text-white">smkn1memhil.sch.id</a></p>
               <div class="footer-social">
                 <ul>

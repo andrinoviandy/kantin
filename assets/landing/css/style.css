@@ -553,10 +553,11 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
 
 /* ===========Single Box Effect Area {Box-One} */
 .header-box-single.box-one {
-    background: url('../images/belajar.jpeg') no-repeat;
+    background: url('../images/slide33.jpg') no-repeat;
     background-size: cover;
     position: relative;
     z-index: 1;
+    background-position: center;
 }
 
 .header-box-single.box-one::before {
@@ -603,10 +604,11 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
 
 /* ===========Single Box Effect Area {Box-Two} */
 .header-box-single.box-two {
-    background: url('../images/para-pengajar.png') no-repeat;
+    background: url('../images/slide2.jpg') no-repeat;
     background-size: cover;
     position: relative;
     z-index: 1;
+    background-position: center;
 }
 
 .header-box-single.box-two::before {
@@ -653,10 +655,11 @@ header .menu .dropdown .dropdown-menu .dropdown .dropdown-menu {
 
 /* ===========Single Box Effect Area {Box-Two} */
 .header-box-single.box-three {
-    background: url('../images/ruang-belajar.jpeg') no-repeat;
+    background: url('../images/slide1.jpg') no-repeat;
     background-size: cover;
     position: relative;
     z-index: 1;
+    background-position: center;
 }
 
 .header-box-single.box-three::before {
