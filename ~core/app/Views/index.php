@@ -101,6 +101,48 @@
       animation: zoomRotateSwing 3s ease-in-out infinite;
       transition: transform 0.3s;
     }
+
+    /* .img-slide {
+      width: 50px;
+      animation: zoomRotateSwing 3s ease-in-out infinite;
+      transition: transform 0.3s;
+    } */
+
+    .img-slide {
+      display: none;
+      /* Default: tidak tampil */
+      position: absolute;
+      z-index: 5;
+      /* Pastikan di atas header dan header-bottom */
+      width: 100px;
+      animation: zoomRotateSwing 3s ease-in-out infinite;
+      transition: transform 0.3s;
+      /* top: calc(80% + 0px); */
+      /* default fallback jika JS tidak dipakai */
+    }
+
+    /* .img-slide {
+      position: absolute;
+      z-index: 2;
+      width: 100px;
+      animation: zoomRotateSwing 3s ease-in-out infinite;
+      transition: transform 0.3s;
+    } */
+
+    @media (max-width: 768px) {
+      .img-slide {
+        display: block;
+        /* Tampilkan hanya saat mobile */
+      }
+
+      .img-slide.one {
+        left: 0;
+      }
+
+      .img-slide.two {
+        right: 0;
+      }
+    }
   </style>
 </head>
 
@@ -113,18 +155,20 @@
   <!-- =======================
         end Preloader
 ======================== -->
+
   <header>
     <div class="menu">
       <div class="container-menu">
+
         <nav class="navbar navbar-expand-lg navbar-light">
           <a class="navbar-brand" href="<?= base_url() ?>"><img src="<?= base_url() ?>/assets/landing/images/<?= $header->logo ?>" alt=""></a>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-auto mb-2 mb-lg-0 ">
               <li class="nav-item dropdown">
-                <a class="nav-link active text-nowrap" aria-current="page" href="">Beranda</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="<?= base_url() ?>/">Beranda</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link active text-nowrap" aria-current="page" href="">Profil Sekolah</a>
+                <a class="nav-link active text-nowrap" aria-current="page" href="https://smkn1memhil.sch.id/tentang-kami/">Profil Sekolah</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link active text-nowrap" aria-current="page" href="<?= base_url() ?>/login">Kantin Digital</a>
@@ -144,32 +188,54 @@
         </nav>
       </div>
     </div>
-    <!-- end menu -->
-    <div class="container">
-      <div class="header-wrap">
-        <div class="row">
-          <div class="col-md-7 col-sm-12 col-lg-7">
-            <div class="header-text">
-              <div class="text">
-                <?= $header->hero_text ?>
-                <!-- <a class="btn btn-primary kids-active-btn" href="<?= base_url() ?>/login">LOGIN DISINI</a> -->
-              </div>
-            </div>
+    <div id="headerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000" data-bs-pause="false" style="z-index: 1;">
+      <div class="carousel-fixed-text">
+        <h2><?= $header->hero_text ?></h2>
+      </div>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#headerCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="<?= base_url() ?>/assets/landing/images/gal-3.jpg" class="d-block w-100" alt="Slide 1">
+          <div class="carousel-caption d-block">
+            <h3>Lebih Cepat Lebih Gampang....</h3>
+            <br>
+            <p>Pesan di Kantin Digital Sekarang !</p>
           </div>
-          <div class="col-md-5 col-sm-12 col-lg-5">
-            <div class="header-img">
-              <img src="<?= base_url() ?>/assets/landing/images/<?= $header->hero_image ?>" alt="">
-            </div>
+        </div>
+        <div class="carousel-item">
+          <img src="<?= base_url() ?>/assets/landing/images/gal-2.jpg" class="d-block w-100" alt="Slide 2">
+          <div class="carousel-caption d-block">
+            <h3>Lebih Efisien....</h3>
+            <br>
+            <p>Pesan Sekarang , Jadi Sekarang !</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="<?= base_url() ?>/assets/landing/images/gal-1.jpg" class="d-block w-100" alt="Slide 3">
+          <div class="carousel-caption d-block">
+            <h3>Lebih Istimewa....</h3>
+            <br>
+            <p>Chef Profesional, Rasa Istimewa !</p>
           </div>
         </div>
       </div>
-      <div class="cloud">
-        <img src="<?= base_url() ?>/assets/landing/images/cloud-01.png" alt="">
-      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#headerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#headerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
     </div>
-    <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan_alfa.png" alt="" class="zoom-rotate-swing"></div>
+    <!-- end menu -->
+    <!-- <div class="animation"><img src="<?= base_url() ?>/assets/landing/images/makanan_alfa.png" alt="" class="zoom-rotate-swing"></div> -->
     <!-- <div class="animation-two" style="background-color: green;"><img src="<?= base_url() ?>/assets/landing/images/7.gif" alt=""></div> -->
   </header>
+  <div class=""><img src="<?= base_url() ?>/assets/landing/images/makanan1.png" alt="" class="img-slide one"></div>
+  <div class=""><img src="<?= base_url() ?>/assets/landing/images/makanan2.png" alt="" class="img-slide two"></div>
   <!-- ====================================
         End Header Here
 ========================================= -->
@@ -267,7 +333,7 @@
           </div>
           <div class="activities-single-box d-flex justify-content-between mt-4 m-left">
             <div class="activities-img">
-              <i class="fa-solid fa-graduation-cap"></i>
+              <i class="fa-solid fa-heart"></i>
             </div>
             <div class="activites-text">
               <?= $kepala->moto4 ?>
